@@ -1,0 +1,2597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CODE SURGE 2K26 - Powered by SynQ. Build. Break. Innovate. Leave Your Surge.">
+    <meta name="theme-color" content="#060302">
+    <title>CODE SURGE 2K26 | Powered by SynQ</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Syncopate:wght@700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* ==========================================================================
+           1. CSS CUSTOM PROPERTIES (DARK & LIGHT THEME TOKENS)
+           ========================================================================== */
+        :root {
+            --bg-primary: #060302;
+            --bg-secondary: #0c0705;
+            --bg-card: rgba(18, 10, 7, 0.85);
+            --bg-card-hover: rgba(28, 14, 9, 0.95);
+
+            --accent-orange: #ff4500; /* Lava Orange */
+            --accent-red: #ff2200;    /* Crimson Red */
+            --accent-amber: #e67700;  /* Warm Amber */
+
+            --text-main: #ffffff;
+            --text-muted: #9e8e85;
+            --text-orange: #ffaa80;
+            --text-silver: #e2e8f0;
+
+            --border-glass: rgba(255, 69, 0, 0.22);
+            --border-glass-hover: rgba(255, 69, 0, 0.6);
+
+            --font-display: 'Orbitron', sans-serif;
+            --font-heading: 'Syncopate', sans-serif;
+            --font-body: 'Rajdhani', sans-serif;
+            --font-mono: 'Share Tech Mono', monospace;
+
+            --transition-fast: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* LIGHT MODE THEME OVERRIDES */
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-hover: rgba(255, 255, 255, 0.98);
+
+            --accent-orange: #ea580c;
+            --accent-red: #dc2626;
+            --accent-amber: #d97706;
+
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --text-orange: #c2410c;
+            --text-silver: #334155;
+
+            --border-glass: rgba(234, 88, 12, 0.25);
+            --border-glass-hover: rgba(234, 88, 12, 0.65);
+        }
+
+        /* ==========================================================================
+           2. GLOBAL RESETS & BASE STYLES
+           ========================================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            line-height: 1.5;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Background Overlay Elements */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .bg-glow-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 30%, rgba(25, 12, 6, 0.5) 0%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        [data-theme="light"] .bg-glow-overlay {
+            background: radial-gradient(circle at 50% 30%, rgba(254, 215, 170, 0.4) 0%, transparent 70%);
+        }
+
+        /* Grid & Scanline Background Overlay */
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(to right, rgba(255, 69, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 69, 0, 0.03) 1px, transparent 1px);
+            background-size: 45px 45px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        [data-theme="light"] .cyber-grid {
+            background-image: 
+                linear-gradient(to right, rgba(234, 88, 12, 0.06) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(234, 88, 12, 0.06) 1px, transparent 1px);
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.3) 51%);
+            background-size: 100% 4px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        [data-theme="light"] .scanline {
+            opacity: 0.08;
+        }
+
+        /* Selection */
+        ::selection {
+            background: var(--accent-orange);
+            color: #ffffff;
+        }
+
+        /* HUD Bracket Helper Classes */
+        .hud-bracket-box {
+            position: relative;
+            border: 1px solid rgba(255, 69, 0, 0.25);
+            padding: 1rem;
+            background: rgba(12, 7, 5, 0.7);
+        }
+
+        [data-theme="light"] .hud-bracket-box {
+            background: #ffffff;
+            border-color: rgba(234, 88, 12, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .hud-bracket-box::before, .hud-bracket-box::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-color: var(--accent-orange);
+            border-style: solid;
+        }
+
+        .hud-bracket-box::before {
+            top: -1px;
+            left: -1px;
+            border-width: 2px 0 0 2px;
+        }
+
+        .hud-bracket-box::after {
+            bottom: -1px;
+            right: -1px;
+            border-width: 0 2px 2px 0;
+        }
+
+        /* ==========================================================================
+           3. NAVBAR / TOP HUD HEADER
+           ========================================================================== */
+        .header-nav {
+            width: 100%;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            background: rgba(6, 3, 2, 0.9);
+            border-bottom: 1px solid var(--border-glass);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: background 0.3s ease;
+        }
+
+        [data-theme="light"] .header-nav {
+            background: rgba(255, 255, 255, 0.9);
+            border-bottom-color: rgba(234, 88, 12, 0.2);
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .synq-nav-logo {
+            height: 32px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.4));
+            transition: var(--transition-fast);
+        }
+
+        [data-theme="light"] .synq-nav-logo {
+            filter: drop-shadow(0 0 4px rgba(15, 23, 42, 0.2));
+        }
+
+        .brand-text-wrap {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-text {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-main);
+        }
+
+        .brand-text span {
+            color: var(--accent-orange);
+        }
+
+        .brand-subtext {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(255, 69, 0, 0.1);
+            border: 1px solid rgba(255, 69, 0, 0.35);
+            padding: 0.4rem 1rem;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: var(--accent-orange);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-orange);
+            border-radius: 50%;
+            animation: pulse-dot 1.8s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.5; }
+        }
+
+        .theme-toggle-btn, .sound-toggle-btn {
+            background: rgba(18, 10, 7, 0.9);
+            border: 1px solid var(--border-glass);
+            color: var(--accent-orange);
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        [data-theme="light"] .theme-toggle-btn,
+        [data-theme="light"] .sound-toggle-btn {
+            background: #ffffff;
+            border-color: rgba(234, 88, 12, 0.3);
+            color: #ea580c;
+        }
+
+        .theme-toggle-btn:hover, .sound-toggle-btn:hover {
+            border-color: var(--accent-orange);
+            color: #ffffff;
+            background: var(--accent-orange);
+        }
+
+        /* ==========================================================================
+           4. HERO & POSTER TITLE SECTION
+           ========================================================================== */
+        .hero-section {
+            padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .poster-top-hud {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+        }
+
+        .terminal-directives {
+            text-align: left;
+            color: var(--text-muted);
+            line-height: 1.7;
+            letter-spacing: 1px;
+        }
+
+        .directive-line {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .directive-line span.prefix {
+            color: var(--accent-orange);
+            font-weight: bold;
+        }
+
+        .directive-line span.highlight {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .hud-year-card {
+            text-align: right;
+            padding: 0.5rem 1rem;
+            background: rgba(12, 7, 5, 0.8);
+            border: 1px solid var(--border-glass);
+            border-radius: 4px;
+            position: relative;
+        }
+
+        [data-theme="light"] .hud-year-card {
+            background: #ffffff;
+        }
+
+        .hud-year-code {
+            color: var(--text-silver);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        .hud-year-val {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--accent-orange);
+            letter-spacing: 3px;
+        }
+
+        .synq-presents-wrap {
+            margin-bottom: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .synq-hero-logo {
+            height: clamp(50px, 9vw, 90px);
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.5));
+            transition: var(--transition-smooth);
+            margin-bottom: 0.25rem;
+        }
+
+        .synq-hero-logo:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 30px rgba(0, 240, 255, 0.8));
+        }
+
+        [data-theme="light"] .synq-hero-logo {
+            filter: drop-shadow(0 4px 14px rgba(15, 23, 42, 0.75));
+        }
+
+        .synq-footer-logo {
+            height: 32px;
+            width: auto;
+            vertical-align: middle;
+            margin-left: 0.5rem;
+            filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45));
+        }
+
+        [data-theme="light"] .synq-footer-logo {
+            filter: drop-shadow(0 2px 6px rgba(15, 23, 42, 0.7));
+        }
+
+        .presents-tag {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            letter-spacing: 8px;
+            color: var(--accent-orange);
+            text-transform: uppercase;
+            margin-top: 0.25rem;
+        }
+
+        .hero-perspective-wrap {
+            perspective: 1000px;
+            display: inline-block;
+            margin: 0.5rem 0 1rem 0;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .title-3d-container {
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(0deg) rotateY(0deg);
+            transition: transform 0.15s ease-out;
+            cursor: pointer;
+            will-change: transform;
+        }
+
+        .title-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            line-height: 0.85;
+        }
+
+        .title-code {
+            font-family: var(--font-display);
+            font-size: clamp(3.5rem, 11vw, 8.5rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 12px;
+            color: #ffffff;
+            text-shadow: 
+                1px 1px 0px #cbd5e1,
+                2px 2px 0px #94a3b8,
+                3px 3px 0px #64748b,
+                4px 4px 0px #475569,
+                5px 5px 0px #334155,
+                6px 6px 0px #1e293b,
+                7px 7px 0px #0f172a,
+                8px 8px 0px #090d16,
+                10px 10px 15px rgba(0, 0, 0, 0.85);
+            position: relative;
+        }
+
+        [data-theme="light"] .title-code {
+            color: #0f172a;
+            text-shadow: 
+                1px 1px 0px #e2e8f0,
+                2px 2px 0px #cbd5e1,
+                3px 3px 0px #94a3b8,
+                4px 4px 0px #64748b,
+                5px 5px 0px #475569,
+                6px 6px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .surge-row-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            position: relative;
+            margin-top: -0.05em;
+        }
+
+        .title-surge {
+            font-family: var(--font-display);
+            font-size: clamp(4rem, 13vw, 10rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            color: var(--accent-orange);
+            text-shadow: 
+                1px 1px 0px #e63e00,
+                2px 2px 0px #cc3300,
+                3px 3px 0px #b32b00,
+                4px 4px 0px #992200,
+                5px 5px 0px #801a00,
+                6px 6px 0px #661100,
+                7px 7px 0px #4d0b00,
+                8px 8px 0px #330500,
+                9px 9px 0px #1a0200,
+                11px 11px 16px rgba(0, 0, 0, 0.95);
+            position: relative;
+        }
+
+        [data-theme="light"] .title-surge {
+            text-shadow: 
+                1px 1px 0px #c2410c,
+                2px 2px 0px #9a3412,
+                3px 3px 0px #7c2d12,
+                4px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .year-surge-accent {
+            font-family: var(--font-display);
+            font-size: clamp(1.4rem, 4vw, 3rem);
+            font-weight: 900;
+            font-style: italic;
+            color: var(--accent-orange);
+            text-shadow: 
+                1px 1px 0px #b32b00,
+                2px 2px 0px #661100,
+                3px 3px 0px #1a0200,
+                4px 4px 8px rgba(0, 0, 0, 0.9);
+            letter-spacing: 2px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1;
+            transform: translateY(-0.2em);
+        }
+
+        [data-theme="light"] .year-surge-accent {
+            text-shadow: 1px 1px 0px #c2410c, 2px 2px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        .year-surge-accent .ticks {
+            font-size: 0.5em;
+            letter-spacing: 3px;
+            color: rgba(255, 69, 0, 0.8);
+            text-shadow: none;
+        }
+
+        .hack-code-line {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(12, 7, 5, 0.9);
+            border: 1px solid var(--border-glass-hover);
+            padding: 0.4rem 1.2rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            font-family: var(--font-mono);
+            font-size: clamp(0.95rem, 2vw, 1.3rem);
+            color: var(--text-main);
+        }
+
+        [data-theme="light"] .hack-code-line {
+            background: #ffffff;
+            border-color: rgba(234, 88, 12, 0.3);
+        }
+
+        .hack-code-line span.cmd {
+            color: var(--accent-orange);
+            font-weight: bold;
+        }
+
+        .poster-sub-tagline {
+            font-family: var(--font-mono);
+            font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+            letter-spacing: 4px;
+            color: var(--accent-orange);
+            margin-top: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        /* ==========================================================================
+           5. MAIN CONTENT - TWO COLUMN GRID & FULL-WIDTH HORIZONTAL FLIP CARDS
+           ========================================================================== */
+        .main-container {
+            width: 100%;
+            max-width: 1240px;
+            margin: 1.5rem auto 4rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .two-column-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            align-items: stretch;
+        }
+
+        /* Glass Panel Styling */
+        .glass-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            padding: 2rem;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        [data-theme="light"] .glass-panel {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-orange), transparent);
+            opacity: 0.7;
+        }
+
+        .panel-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .panel-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .panel-title i {
+            color: var(--accent-orange);
+        }
+
+        .panel-subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 0.35rem;
+        }
+
+        /* ==========================================================================
+           FULL-WIDTH HORIZONTAL FLIP CARDS (STACKED HORIZONTALLY PROPORTIONAL)
+           ========================================================================== */
+        .flip-card-list-horizontal {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            flex-grow: 1;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+        }
+
+        .flip-card-h {
+            background-color: transparent;
+            width: 100%;
+            flex: 1;
+            min-height: 85px;
+            height: 100%;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flip-card-h .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .flip-card-h:hover .flip-card-inner {
+            transform: rotateX(180deg);
+        }
+
+        .flip-card-h .flip-card-front, 
+        .flip-card-h .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 8px;
+            padding: 1rem 1.35rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .flip-card-h .flip-card-front {
+            background: rgba(12, 7, 5, 0.9);
+            border: 1px solid rgba(255, 69, 0, 0.25);
+            color: var(--text-main);
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        [data-theme="light"] .flip-card-h .flip-card-front {
+            background: #ffffff;
+            border-color: rgba(234, 88, 12, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .flip-card-h .front-left-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .flip-card-h .front-left-content i {
+            font-size: 1.6rem;
+            color: var(--accent-orange);
+            flex-shrink: 0;
+        }
+
+        .flip-card-h .title-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            text-align: left;
+        }
+
+        .flip-card-h .flip-card-title {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            text-transform: uppercase;
+        }
+
+        .flip-card-h .flip-card-subtext {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .flip-card-h .flip-card-tag {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-orange);
+            background: rgba(255, 69, 0, 0.1);
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 69, 0, 0.25);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .flip-card-h .flip-card-back {
+            background: rgba(22, 11, 7, 0.98);
+            border: 1px solid var(--accent-orange);
+            color: var(--text-main);
+            transform: rotateX(180deg);
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 0.3rem;
+        }
+
+        [data-theme="light"] .flip-card-h .flip-card-back {
+            background: #fff7ed;
+            border-color: #ea580c;
+        }
+
+        .flip-card-h .flip-back-title {
+            font-family: var(--font-display);
+            font-size: 0.82rem;
+            font-weight: 800;
+            color: var(--accent-orange);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .flip-card-h .flip-back-desc {
+            font-size: 0.78rem;
+            color: var(--text-silver);
+            line-height: 1.35;
+        }
+
+        /* Prize Pool Card Styling */
+        .prize-banner-box {
+            background: rgba(12, 7, 5, 0.95);
+            border: 1px solid var(--border-glass-hover);
+            border-radius: 8px;
+            padding: 1.1rem;
+            text-align: center;
+            margin-bottom: 1.25rem;
+            position: relative;
+        }
+
+        [data-theme="light"] .prize-banner-box {
+            background: #ffffff;
+            border-color: rgba(234, 88, 12, 0.35);
+        }
+
+        .prize-amount {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            font-weight: 900;
+            color: var(--accent-orange);
+            letter-spacing: 2px;
+            line-height: 1;
+            margin-bottom: 0.35rem;
+            text-shadow: 
+                1px 1px 0px #b32b00,
+                2px 2px 0px #661100,
+                3px 3px 6px rgba(0, 0, 0, 0.9);
+        }
+
+        [data-theme="light"] .prize-amount {
+            text-shadow: 1px 1px 0px #c2410c, 2px 2px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        .prize-sub {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: var(--text-silver);
+            text-transform: uppercase;
+        }
+
+        .prize-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            flex-grow: 1;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+        }
+
+        .prize-tier-card {
+            background: rgba(12, 7, 5, 0.85);
+            border: 1px solid rgba(255, 69, 0, 0.2);
+            border-radius: 8px;
+            padding: 1rem 1.35rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            transition: var(--transition-fast);
+            flex: 1;
+            min-height: 85px;
+        }
+
+        [data-theme="light"] .prize-tier-card {
+            background: #ffffff;
+            border-color: rgba(234, 88, 12, 0.25);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .prize-tier-card:hover {
+            border-color: var(--accent-orange);
+            transform: translateY(-2px);
+            background: var(--bg-card-hover);
+        }
+
+        .prize-left-wrap {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .prize-left-wrap i {
+            font-size: 1.6rem;
+            color: var(--accent-orange);
+            flex-shrink: 0;
+        }
+
+        .prize-details {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .prize-rank {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .prize-perks {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            margin-top: 0.15rem;
+        }
+
+        .prize-val {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: var(--accent-orange);
+            white-space: nowrap;
+            letter-spacing: 1px;
+        }
+
+        .prize-extra-bar {
+            background: rgba(255, 69, 0, 0.08);
+            border: 1px solid rgba(255, 69, 0, 0.25);
+            border-radius: 6px;
+            padding: 0.75rem;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--text-silver);
+        }
+
+        [data-theme="light"] .prize-extra-bar {
+            background: #fff7ed;
+            border-color: rgba(234, 88, 12, 0.3);
+        }
+
+        .prize-extra-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .prize-extra-item i {
+            color: var(--accent-orange);
+        }
+
+        /* Contact & Support Section (Compact) */
+        .contact-panel {
+            margin-top: 2rem;
+            padding: 1.25rem 1.5rem;
+        }
+
+        .contact-panel .panel-header {
+            margin-bottom: 0.85rem;
+        }
+
+        .contact-panel .panel-title {
+            font-size: 1.15rem;
+        }
+
+        .contact-panel .panel-subtitle {
+            font-size: 0.82rem;
+            margin-top: 0.2rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.85rem;
+        }
+
+        .contact-card {
+            background: rgba(12, 7, 5, 0.85);
+            border: 1px solid rgba(255, 69, 0, 0.25);
+            border-radius: 6px;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: var(--transition-smooth);
+        }
+
+        [data-theme="light"] .contact-card {
+            background: #ffffff;
+            border-color: rgba(234, 88, 12, 0.25);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+        }
+
+        .contact-card:hover {
+            border-color: var(--accent-orange);
+            transform: translateY(-2px);
+            background: var(--bg-card-hover);
+            box-shadow: 0 4px 12px rgba(255, 69, 0, 0.15);
+        }
+
+        .contact-avatar-wrap {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 69, 0, 0.12);
+            border: 1px solid rgba(255, 69, 0, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-orange);
+            font-size: 0.95rem;
+            flex-shrink: 0;
+            transition: var(--transition-fast);
+        }
+
+        .contact-card:hover .contact-avatar-wrap {
+            background: var(--accent-orange);
+            color: #ffffff;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+            text-align: left;
+        }
+
+        .contact-name {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            text-transform: uppercase;
+        }
+
+        .contact-role {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--accent-orange);
+            letter-spacing: 1px;
+        }
+
+        .contact-phone {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-silver);
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            margin-top: 0.1rem;
+        }
+
+        /* 4 Core Pillars Grid */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .pillar-card {
+            background: rgba(12, 7, 5, 0.85);
+            border: 1px solid rgba(255, 69, 0, 0.2);
+            border-radius: 8px;
+            padding: 1.25rem;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        [data-theme="light"] .pillar-card {
+            background: #ffffff;
+            border-color: rgba(234, 88, 12, 0.25);
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-orange);
+            background: var(--bg-card-hover);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .pillar-icon-wrap {
+            width: 44px;
+            height: 44px;
+            border-radius: 6px;
+            background: rgba(255, 69, 0, 0.12);
+            border: 1px solid rgba(255, 69, 0, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.85rem;
+            color: var(--accent-orange);
+            font-size: 1.25rem;
+            transition: var(--transition-fast);
+        }
+
+        .pillar-card:hover .pillar-icon-wrap {
+            background: var(--accent-orange);
+            color: #ffffff;
+        }
+
+        .pillar-title {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 0.4rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pillar-title span.tag-symbol {
+            color: var(--accent-orange);
+            font-family: var(--font-mono);
+            font-size: 0.9em;
+        }
+
+        .pillar-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.45;
+        }
+
+        /* Quote Directive Block */
+        .quote-block {
+            background: rgba(255, 69, 0, 0.06);
+            border-left: 4px solid var(--accent-orange);
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            position: relative;
+            margin-top: 1rem;
+        }
+
+        [data-theme="light"] .quote-block {
+            background: #fff7ed;
+        }
+
+        .quote-text {
+            font-style: italic;
+            font-size: 0.98rem;
+            color: var(--text-orange);
+            line-height: 1.5;
+        }
+
+        .quote-author {
+            margin-top: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        /* Spots Remaining Progress Bar */
+        .spots-container {
+            margin-top: 1.5rem;
+            background: rgba(12, 7, 5, 0.9);
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        [data-theme="light"] .spots-container {
+            background: #ffffff;
+            border-color: rgba(234, 88, 12, 0.3);
+        }
+
+        .spots-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .spots-label {
+            color: var(--text-muted);
+        }
+
+        .spots-count {
+            color: var(--accent-orange);
+            font-family: var(--font-mono);
+            letter-spacing: 1px;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        [data-theme="light"] .progress-track {
+            background: #e2e8f0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 89%;
+            background: linear-gradient(90deg, var(--accent-red), var(--accent-orange), var(--accent-amber));
+            border-radius: 4px;
+            transition: width 1s ease-in-out;
+        }
+
+        /* Right Column: Countdown & Registration Form */
+        .countdown-wrap {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .countdown-title {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 0.85rem;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.85rem;
+        }
+
+        .countdown-box {
+            background: rgba(6, 3, 2, 0.9);
+            border: 1px solid var(--border-glass);
+            border-radius: 6px;
+            padding: 0.85rem 0.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        [data-theme="light"] .countdown-box {
+            background: #ffffff;
+            border-color: rgba(234, 88, 12, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .countdown-box::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-orange);
+        }
+
+        .countdown-val {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+            font-weight: 900;
+            color: var(--text-main);
+            line-height: 1;
+        }
+
+        .countdown-unit {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-top: 0.4rem;
+        }
+
+        /* Registration Form */
+        .form-group {
+            margin-bottom: 1.25rem;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            letter-spacing: 1.5px;
+            color: var(--text-orange);
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-wrap i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1rem;
+            transition: var(--transition-fast);
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(6, 3, 2, 0.95);
+            border: 1px solid var(--border-glass);
+            border-radius: 6px;
+            padding: 0.85rem 1rem 0.85rem 2.8rem;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition-fast);
+        }
+
+        [data-theme="light"] .form-control {
+            background: #ffffff;
+            border-color: rgba(234, 88, 12, 0.3);
+            color: #0f172a;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-orange);
+        }
+
+        .form-control:focus + i {
+            color: var(--accent-orange);
+        }
+
+        .error-message {
+            color: #ff3333;
+            font-size: 0.8rem;
+            margin-top: 0.35rem;
+            display: none;
+            font-family: var(--font-mono);
+        }
+
+        .form-control.is-invalid {
+            border-color: #ff3333;
+        }
+
+        .form-control.is-invalid ~ .error-message {
+            display: block;
+        }
+
+        /* Surge CTA Button */
+        .btn-surge {
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-red) 100%);
+            color: #ffffff;
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: 1.15rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 1.1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-surge::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(45deg) translateY(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .btn-surge:hover::before {
+            transform: rotate(45deg) translateY(100%);
+        }
+
+        .btn-surge:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+
+        .btn-surge:active {
+            transform: translateY(1px);
+        }
+
+        /* Poster HUD Bottom Box */
+        .poster-stay-tuned-box {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(12, 7, 5, 0.9);
+            border: 1px solid var(--border-glass);
+            border-radius: 6px;
+            position: relative;
+            text-align: center;
+        }
+
+        [data-theme="light"] .poster-stay-tuned-box {
+            background: #ffffff;
+            border-color: rgba(234, 88, 12, 0.3);
+        }
+
+        .stay-tuned-heading {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            color: var(--text-silver);
+            text-transform: uppercase;
+        }
+
+        .stay-tuned-sub {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            color: var(--accent-orange);
+            margin-top: 0.35rem;
+        }
+
+        /* ==========================================================================
+           6. SUCCESS TICKET PASS MODAL
+           ========================================================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(4, 2, 1, 0.92);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        [data-theme="light"] .modal-overlay {
+            background: rgba(15, 23, 42, 0.7);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .ticket-modal {
+            background: var(--bg-secondary);
+            border: 2px solid var(--accent-orange);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 520px;
+            padding: 2.2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9);
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            text-align: center;
+        }
+
+        [data-theme="light"] .ticket-modal {
+            background: #ffffff;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .modal-overlay.active .ticket-modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1.2rem;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .close-modal-btn:hover {
+            color: var(--accent-orange);
+        }
+
+        .ticket-header i {
+            font-size: 3.2rem;
+            color: var(--accent-orange);
+            margin-bottom: 0.75rem;
+        }
+
+        .ticket-title {
+            font-family: var(--font-display);
+            font-size: 1.7rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            color: var(--text-main);
+            margin-bottom: 0.25rem;
+        }
+
+        .ticket-subtitle {
+            color: var(--text-orange);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            font-family: var(--font-mono);
+        }
+
+        .ticket-pass-box {
+            background: rgba(6, 3, 2, 0.95);
+            border: 1px dashed var(--accent-orange);
+            border-radius: 8px;
+            padding: 1.25rem;
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        [data-theme="light"] .ticket-pass-box {
+            background: #fff7ed;
+        }
+
+        .ticket-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+        }
+
+        .ticket-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .ticket-key {
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            font-family: var(--font-mono);
+        }
+
+        .ticket-val {
+            color: var(--text-main);
+            font-weight: 600;
+            font-family: var(--font-display);
+        }
+
+        .ticket-code {
+            color: var(--accent-orange);
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
+
+        .btn-modal-close {
+            background: rgba(255, 69, 0, 0.15);
+            border: 1px solid var(--accent-orange);
+            color: var(--accent-orange);
+            font-family: var(--font-display);
+            font-weight: 800;
+            padding: 0.85rem 2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            letter-spacing: 2px;
+            width: 100%;
+        }
+
+        .btn-modal-close:hover {
+            background: var(--accent-orange);
+            color: #ffffff;
+        }
+
+        /* ==========================================================================
+           7. FOOTER
+           ========================================================================== */
+        footer {
+            margin-top: auto;
+            width: 100%;
+            background: rgba(6, 3, 2, 0.98);
+            border-top: 1px solid var(--border-glass);
+            padding: 2.2rem 2rem;
+            text-align: center;
+            transition: background 0.3s ease;
+        }
+
+        [data-theme="light"] footer {
+            background: #f1f5f9;
+            border-top-color: rgba(234, 88, 12, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .footer-powered {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            color: var(--text-main);
+        }
+
+        .footer-powered span {
+            color: var(--accent-orange);
+        }
+
+        .footer-stay-tuned {
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+            letter-spacing: 4px;
+            color: var(--text-muted);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.25rem;
+        }
+
+        .social-link {
+            width: 42px;
+            height: 42px;
+            border-radius: 6px;
+            background: rgba(18, 10, 7, 0.9);
+            border: 1px solid var(--border-glass);
+            color: var(--text-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+
+        [data-theme="light"] .social-link {
+            background: #ffffff;
+            border-color: rgba(234, 88, 12, 0.3);
+        }
+
+        .social-link:hover {
+            border-color: var(--accent-orange);
+            color: #ffffff;
+            background: var(--accent-orange);
+            transform: translateY(-3px);
+        }
+
+        .copyright-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            font-family: var(--font-mono);
+        }
+
+        /* ==========================================================================
+           8. RESPONSIVE BREAKPOINTS
+           ========================================================================== */
+        @media (max-width: 900px) {
+            .two-column-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .poster-top-hud {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+                text-align: center;
+            }
+
+            .terminal-directives {
+                text-align: center;
+            }
+
+            .hud-year-card {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .header-nav {
+                padding: 0.85rem 1rem;
+            }
+
+            .brand-text {
+                font-size: 1rem;
+            }
+
+            .pillars-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .countdown-grid, .prize-grid {
+                gap: 0.5rem;
+            }
+
+            .countdown-box {
+                padding: 0.6rem 0.25rem;
+            }
+
+            .countdown-val {
+                font-size: 1.4rem;
+            }
+
+            .glass-panel {
+                padding: 1.25rem;
+            }
+
+            .hero-section {
+                padding-top: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Canvas Background for Fiery Ember Particles -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="bg-glow-overlay"></div>
+    <div class="cyber-grid"></div>
+    <div class="scanline"></div>
+
+    <!-- Navigation Header -->
+    <header class="header-nav">
+        <a href="#" class="brand-logo" title="CODE SURGE 2K26 Powered by SynQ">
+            <img src="synq_logo.png" alt="SynQ Logo" class="synq-nav-logo synq-logo-img">
+        </a>
+        <div class="nav-actions">
+            <div class="status-badge" aria-label="Event Status">
+                <span class="status-dot"></span>
+                <span>SYSTEM ONLINE // REGISTRATION OPEN</span>
+            </div>
+
+            <!-- Light / Dark Mode Toggle Button -->
+            <button id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Light / Dark Mode" aria-label="Toggle Theme">
+                <i class="fa-solid fa-sun"></i>
+            </button>
+
+            <!-- Sound Effects Toggle Button -->
+            <button id="soundToggleBtn" class="sound-toggle-btn" title="Toggle Synth Sound Effects" aria-label="Toggle Sound">
+                <i class="fa-solid fa-volume-high"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero / Poster Visual Identity Section -->
+    <section class="hero-section">
+        
+        <!-- Top Poster Directives Header -->
+        <div class="poster-top-hud">
+            <div class="terminal-directives">
+                <div class="directive-line"><span class="prefix">&gt;</span> <span class="highlight">SYNQ INITIATIVE_</span></div>
+                <div class="directive-line"><span class="prefix">&gt;</span> BUILD. BREAK. INNOVATE_</div>
+                <div class="directive-line"><span class="prefix">&gt;</span> CODE THE FUTURE_</div>
+                <div class="directive-line"><span class="prefix">&gt;</span> LEAVE YOUR SURGE_</div>
+            </div>
+            
+            <div class="hud-year-card hud-bracket-box">
+                <div class="hud-year-code">&lt;/&gt; EVENT</div>
+                <div class="hud-year-val">2K26</div>
+            </div>
+        </div>
+
+        <!-- SynQ Presents Branding -->
+        <div class="synq-presents-wrap">
+            <img src="synq_logo.png" alt="SynQ Logo" class="synq-hero-logo synq-logo-img">
+            <div class="presents-tag">PRESENTS</div>
+        </div>
+
+        <!-- 3D Title Block matching poster typography -->
+        <div class="hero-perspective-wrap">
+            <div class="title-3d-container" id="title3d">
+                <div class="title-block">
+                    <h1 class="title-code">CODE</h1>
+                    <div class="surge-row-wrap">
+                        <span class="title-surge">SURGE</span>
+                        <div class="year-surge-accent">
+                            <span>2K26</span>
+                            <span class="ticks">//////</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hack Code Line -->
+        <div class="hack-code-line">
+            <span class="cmd">&gt;.hack();_</span>
+        </div>
+
+        <!-- Tagline Banner -->
+        <div class="poster-sub-tagline">
+            // MORE THAN CODE. IT'S A SURGE.
+        </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="main-container">
+        
+        <!-- ROW 1: Hackathon Tracks & Prize Pool Section -->
+        <div class="two-column-grid" style="margin-bottom: 2.5rem;">
+            
+            <!-- LEFT CARD: Hackathon Tracks & Domains (Full-Width Horizontal Flip Bars) -->
+            <section class="glass-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <span>Hackathon Tracks</span>
+                    </h2>
+                    <p class="panel-subtitle">Explore the 3 core innovation domains for Code Surge 2K26.</p>
+                </div>
+
+                <!-- 3 Horizontal Domain Flip Bars (Proportional Full-Width Height Alignment) -->
+                <div class="flip-card-list-horizontal">
+                    
+                    <!-- Domain 1: ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING -->
+                    <div class="flip-card-h">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="front-left-content">
+                                    <i class="fa-solid fa-brain"></i>
+                                    <div class="title-wrap">
+                                        <span class="flip-card-title">Artificial Intelligence &amp; Machine Learning</span>
+                                        <span class="flip-card-subtext">LLMs · Autonomous Agents · Neural Reasoning · Vision</span>
+                                    </div>
+                                </div>
+                                <span class="flip-card-tag">&lt;AI / ML&gt;</span>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="flip-back-title">Artificial Intelligence &amp; Machine Learning</div>
+                                <div class="flip-back-desc">Build autonomous AI agents, LLM pipelines, neural reasoning models, computer vision systems, and predictive data analytics.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Domain 2: CYBER SECURITY -->
+                    <div class="flip-card-h">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="front-left-content">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                    <div class="title-wrap">
+                                        <span class="flip-card-title">Cyber Security</span>
+                                        <span class="flip-card-subtext">Zero-Trust · Cloud SecOps · Encrypted Mesh · Audit</span>
+                                    </div>
+                                </div>
+                                <span class="flip-card-tag">#! SecOps</span>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="flip-back-title">Cyber Security</div>
+                                <div class="flip-back-desc">Architect zero-trust security frameworks, vulnerability audit engines, encrypted communication networks, and cloud defense.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Domain 3: FINTECH -->
+                    <div class="flip-card-h">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="front-left-content">
+                                    <i class="fa-solid fa-coins"></i>
+                                    <div class="title-wrap">
+                                        <span class="flip-card-title">FinTech</span>
+                                        <span class="flip-card-subtext">Payment Gateways · DeFi · Algo Trading · Anti-Fraud</span>
+                                    </div>
+                                </div>
+                                <span class="flip-card-tag">[₹ FinTech]</span>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="flip-back-title">FinTech</div>
+                                <div class="flip-back-desc">Construct next-gen payment gateways, algorithmic trading systems, decentralized finance protocols, and anti-fraud engines.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- RIGHT CARD: Prize Pool (₹1,50,000 Rupees - ₹50,000 per domain) -->
+            <section class="glass-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">
+                        <i class="fa-solid fa-trophy"></i>
+                        <span>Prize Pool</span>
+                    </h2>
+                    <p class="panel-subtitle">₹1,50,000 INR total rewards — ₹50,000 prize pool per domain!</p>
+                </div>
+
+                <!-- Grand Prize Banner -->
+                <div class="prize-banner-box hud-bracket-box">
+                    <div class="prize-amount">₹1,50,000</div>
+                    <div class="prize-sub">TOTAL GRAND PRIZE POOL</div>
+                </div>
+
+                <!-- 3 Per-Domain Prize Breakdown List -->
+                <div class="prize-grid">
+                    <!-- Domain 1 Prize -->
+                    <div class="prize-tier-card">
+                        <div class="prize-left-wrap">
+                            <i class="fa-solid fa-brain"></i>
+                            <div class="prize-details">
+                                <div class="prize-rank">AI &amp; Machine Learning Track</div>
+                                <div class="prize-perks">Track Champion + SynQ Incubation</div>
+                            </div>
+                        </div>
+                        <div class="prize-val">₹50,000</div>
+                    </div>
+
+                    <!-- Domain 2 Prize -->
+                    <div class="prize-tier-card">
+                        <div class="prize-left-wrap">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <div class="prize-details">
+                                <div class="prize-rank">Cyber Security Track</div>
+                                <div class="prize-perks">Track Champion + SynQ Incubation</div>
+                            </div>
+                        </div>
+                        <div class="prize-val">₹50,000</div>
+                    </div>
+
+                    <!-- Domain 3 Prize -->
+                    <div class="prize-tier-card">
+                        <div class="prize-left-wrap">
+                            <i class="fa-solid fa-coins"></i>
+                            <div class="prize-details">
+                                <div class="prize-rank">FinTech Track</div>
+                                <div class="prize-perks">Track Champion + SynQ Incubation</div>
+                            </div>
+                        </div>
+                        <div class="prize-val">₹50,000</div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- ROW 2: Pillars & Registration Section -->
+        <div class="two-column-grid">
+            
+            <!-- LEFT COLUMN: Core Pillars (Code, Create, Collaborate, Conquer) -->
+            <section class="glass-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">
+                        <i class="fa-solid fa-fire-flame-curved"></i>
+                        <span>The 4 Pillars</span>
+                    </h2>
+                    <p class="panel-subtitle">Everything you need to leave your surge in 2026.</p>
+                </div>
+
+                <!-- 4 Core Pillars matching poster bottom-left HUD -->
+                <div class="pillars-grid">
+                    <!-- Pillar 1: CODE -->
+                    <div class="pillar-card">
+                        <div class="pillar-icon-wrap">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <h3 class="pillar-title"><span class="tag-symbol">&lt;&gt;</span> CODE</h3>
+                        <p class="pillar-desc">Architect production-grade algorithms, high-throughput engines, and resilient AI systems.</p>
+                    </div>
+
+                    <!-- Pillar 2: CREATE -->
+                    <div class="pillar-card">
+                        <div class="pillar-icon-wrap">
+                            <i class="fa-solid fa-cube"></i>
+                        </div>
+                        <h3 class="pillar-title"><span class="tag-symbol">[ ]</span> CREATE</h3>
+                        <p class="pillar-desc">Forge groundbreaking ideas into fully functional prototypes that disrupt traditional tech.</p>
+                    </div>
+
+                    <!-- Pillar 3: COLLABORATE -->
+                    <div class="pillar-card">
+                        <div class="pillar-icon-wrap">
+                            <i class="fa-solid fa-users-viewfinder"></i>
+                        </div>
+                        <h3 class="pillar-title"><span class="tag-symbol">&amp;&amp;</span> COLLABORATE</h3>
+                        <p class="pillar-desc">Join forces with elite engineers, mentors, and innovators to push boundaries together.</p>
+                    </div>
+
+                    <!-- Pillar 4: CONQUER -->
+                    <div class="pillar-card">
+                        <div class="pillar-icon-wrap">
+                            <i class="fa-solid fa-crosshairs"></i>
+                        </div>
+                        <h3 class="pillar-title"><span class="tag-symbol">#!</span> CONQUER</h3>
+                        <p class="pillar-desc">Dominate 48 hours of intense hackathon challenges and claim legendary rewards.</p>
+                    </div>
+                </div>
+
+                <!-- Quote Block -->
+                <div class="quote-block">
+                    <p class="quote-text">"BUILD. BREAK. INNOVATE. The future isn't waited for—it's forged in lines of code."</p>
+                    <p class="quote-author">— SYNQ INITIATIVE DIRECTIVE 2K26</p>
+                </div>
+            </section>
+
+            <!-- RIGHT COLUMN: Registration & Countdown -->
+            <section class="glass-panel" id="registrationSection">
+                <div class="panel-header">
+                    <h2 class="panel-title">
+                        <i class="fa-solid fa-bolt"></i>
+                        <span>Claim Your Pass</span>
+                    </h2>
+                    <p class="panel-subtitle">Secure your slot before system capacity is reached.</p>
+                </div>
+
+                <!-- Countdown Timer -->
+                <div class="countdown-wrap">
+                    <div class="countdown-title">
+                        <i class="fa-regular fa-clock" style="color: var(--accent-orange);"></i>
+                        <span>SURGE LAUNCH COUNTDOWN</span>
+                    </div>
+                    <div class="countdown-grid">
+                        <div class="countdown-box">
+                            <div class="countdown-val" id="timerDays">00</div>
+                            <div class="countdown-unit">Days</div>
+                        </div>
+                        <div class="countdown-box">
+                            <div class="countdown-val" id="timerHours">00</div>
+                            <div class="countdown-unit">Hours</div>
+                        </div>
+                        <div class="countdown-box">
+                            <div class="countdown-val" id="timerMinutes">00</div>
+                            <div class="countdown-unit">Minutes</div>
+                        </div>
+                        <div class="countdown-box">
+                            <div class="countdown-val" id="timerSeconds">00</div>
+                            <div class="countdown-unit">Seconds</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Registration Form -->
+                <form id="registrationForm" novalidate>
+                    <!-- Full Name -->
+                    <div class="form-group">
+                        <label for="fullName" class="form-label">Full Name *</label>
+                        <div class="input-wrap">
+                            <input type="text" id="fullName" class="form-control" placeholder="e.g. Alex Mercer" required>
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div class="error-message">Please enter your full name.</div>
+                    </div>
+
+                    <!-- Email Address -->
+                    <div class="form-group">
+                        <label for="emailAddr" class="form-label">Email Address *</label>
+                        <div class="input-wrap">
+                            <input type="email" id="emailAddr" class="form-control" placeholder="e.g. alex@cybernet.io" required>
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div class="error-message">Please enter a valid email address.</div>
+                    </div>
+
+                    <!-- Team Name -->
+                    <div class="form-group">
+                        <label for="teamName" class="form-label">Team Name (Optional)</label>
+                        <div class="input-wrap">
+                            <input type="text" id="teamName" class="form-control" placeholder="e.g. SynQSurgeons">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                    </div>
+
+                    <!-- CTA Submit Button -->
+                    <button type="submit" class="btn-surge" id="submitBtn">
+                        <span>SURGE NOW</span>
+                        <i class="fa-solid fa-fire"></i>
+                    </button>
+                </form>
+
+                <!-- Poster Bottom Right Box -->
+                <div class="poster-stay-tuned-box hud-bracket-box">
+                    <div class="stay-tuned-heading">ARE YOU READY TO CODE THE NEXT BIG THING?</div>
+                    <div class="stay-tuned-sub">STAY TUNED...</div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Contact & Enquiries Section -->
+        <section class="glass-panel contact-panel" id="contactSection">
+            <div class="panel-header">
+                <h2 class="panel-title">
+                    <i class="fa-solid fa-headset"></i>
+                    <span>For Any Enquiries Contact</span>
+                </h2>
+                <p class="panel-subtitle">Reach out to the Code Surge 2K26 organizing team anytime.</p>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Contact 1: Jayavardhan -->
+                <a href="tel:+918088389332" class="contact-card" title="Call Jayavardhan">
+                    <div class="contact-avatar-wrap">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <div class="contact-info">
+                        <span class="contact-name">Jayavardhan</span>
+                        <span class="contact-role">ORGANIZING TEAM</span>
+                        <span class="contact-phone"><i class="fa-solid fa-mobile-screen-button"></i> +91 8088389332</span>
+                    </div>
+                </a>
+
+                <!-- Contact 2: Praveen Reddy -->
+                <a href="tel:+918618118952" class="contact-card" title="Call Praveen Reddy">
+                    <div class="contact-avatar-wrap">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <div class="contact-info">
+                        <span class="contact-name">Praveen Reddy</span>
+                        <span class="contact-role">ORGANIZING TEAM</span>
+                        <span class="contact-phone"><i class="fa-solid fa-mobile-screen-button"></i> +91 8618118952</span>
+                    </div>
+                </a>
+
+                <!-- Contact 3: Ujwal M -->
+                <a href="tel:+917411237522" class="contact-card" title="Call Ujwal M">
+                    <div class="contact-avatar-wrap">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <div class="contact-info">
+                        <span class="contact-name">Ujwal M</span>
+                        <span class="contact-role">ORGANIZING TEAM</span>
+                        <span class="contact-phone"><i class="fa-solid fa-mobile-screen-button"></i> +91 7411237522</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Ticket Pass Modal -->
+    <div class="modal-overlay" id="ticketModal">
+        <div class="ticket-modal">
+            <button class="close-modal-btn" id="closeModalBtn" aria-label="Close modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="ticket-header">
+                <i class="fa-solid fa-circle-check"></i>
+                <h3 class="ticket-title">SURGE PASS CONFIRMED!</h3>
+                <p class="ticket-subtitle">Welcome to CODE SURGE 2K26</p>
+            </div>
+
+            <div class="ticket-pass-box">
+                <div class="ticket-row">
+                    <span class="ticket-key">Participant</span>
+                    <span class="ticket-val" id="modalParticipantName">Alex Mercer</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="ticket-key">Email</span>
+                    <span class="ticket-val" id="modalParticipantEmail">alex@cybernet.io</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="ticket-key">Team</span>
+                    <span class="ticket-val" id="modalTeamName">SynQSurgeons</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="ticket-key">Pass Code</span>
+                    <span class="ticket-val ticket-code" id="modalPassCode">#CS2K26-8942</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="ticket-key">Status</span>
+                    <span class="ticket-val" style="color: var(--accent-orange);">VERIFIED HACKER</span>
+                </div>
+            </div>
+
+            <button class="btn-modal-close" id="modalOkBtn">GOT IT, SEE YOU AT THE SURGE</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-powered">
+                POWERED BY <img src="synq_logo.png" alt="SynQ Logo" class="synq-footer-logo synq-logo-img">
+            </div>
+            <div class="footer-stay-tuned">
+                #LEAVE YOUR SURGE · STAY TUNED
+            </div>
+
+            <div class="social-links">
+                <a href="#" class="social-link" title="Twitter / X" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#" class="social-link" title="GitHub" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="#" class="social-link" title="Discord" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+                <a href="#" class="social-link" title="LinkedIn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+
+            <p class="copyright-text">&copy; 2026 CODE SURGE 2K26. All rights reserved. Powered by SynQ INITIATIVE.</p>
+        </div>
+    </footer>
+
+    <!-- Javascript Application Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            /* ==========================================================================
+               1. CONSOLE EASTER EGG
+               ========================================================================== */
+            console.log(
+                '%c[CODE SURGE 2K26]%c\nWelcome Hacker! Systems fully operational.\nBUILD. BREAK. INNOVATE.\nPowered by SynQ INITIATIVE.',
+                'color: #ff4500; font-family: sans-serif; font-size: 20px; font-weight: bold; background: #0c0705; padding: 6px 12px; border-radius: 4px; border: 1px solid #ff4500;',
+                'color: #ffaa80; font-size: 13px; font-family: monospace; line-height: 1.6;'
+            );
+
+            /* ==========================================================================
+               2. LIGHT MODE / DARK MODE THEME TOGGLE LOGIC & LOGO SWITCHING
+               ========================================================================== */
+            const themeToggleBtn = document.getElementById('themeToggleBtn');
+            const savedTheme = localStorage.getItem('theme');
+
+            function updateLogoTheme(isLight) {
+                document.querySelectorAll('.synq-logo-img').forEach(img => {
+                    img.src = isLight ? 'synq_logo_dark.png' : 'synq_logo.png';
+                });
+            }
+
+            if (savedTheme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                if (themeToggleBtn) themeToggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+                updateLogoTheme(true);
+            }
+
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', () => {
+                    let currentTheme = document.documentElement.getAttribute('data-theme');
+                    if (currentTheme === 'light') {
+                        document.documentElement.removeAttribute('data-theme');
+                        localStorage.setItem('theme', 'dark');
+                        themeToggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+                        updateLogoTheme(false);
+                        playBeep(350, 0.05, 'sine');
+                    } else {
+                        document.documentElement.setAttribute('data-theme', 'light');
+                        localStorage.setItem('theme', 'light');
+                        themeToggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+                        updateLogoTheme(true);
+                        playBeep(500, 0.05, 'sine');
+                    }
+                });
+            }
+
+            /* ==========================================================================
+               3. WEB AUDIO API SYNTHESIS (SYNQ SOUND EFFECTS)
+               ========================================================================== */
+            let audioEnabled = true;
+            const soundToggleBtn = document.getElementById('soundToggleBtn');
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+            soundToggleBtn.addEventListener('click', () => {
+                audioEnabled = !audioEnabled;
+                if (audioEnabled) {
+                    soundToggleBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+                    soundToggleBtn.style.color = 'var(--accent-orange)';
+                    playBeep(440, 0.1, 'sawtooth');
+                } else {
+                    soundToggleBtn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+                    soundToggleBtn.style.color = 'var(--text-muted)';
+                }
+            });
+
+            function playBeep(freq = 300, duration = 0.08, type = 'sawtooth') {
+                if (!audioEnabled || !audioCtx) return;
+                try {
+                    if (audioCtx.state === 'suspended') {
+                        audioCtx.resume();
+                    }
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = type;
+                    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + duration);
+                } catch(e) { /* ignore audio restrictions */ }
+            }
+
+            function playSuccessChime() {
+                if (!audioEnabled || !audioCtx) return;
+                [293.66, 369.99, 440.00, 587.33].forEach((freq, idx) => {
+                    setTimeout(() => playBeep(freq, 0.18, 'triangle'), idx * 90);
+                });
+            }
+
+            document.querySelectorAll('.btn-surge, .pillar-card, .social-link, .flip-card-h').forEach(el => {
+                el.addEventListener('mouseenter', () => playBeep(220, 0.04, 'triangle'));
+            });
+
+            /* ==========================================================================
+               4. BALANCED MEDIUM 3D TILT EFFECT ON CODE SURGE TITLE
+               ========================================================================== */
+            const title3d = document.getElementById('title3d');
+            if (title3d) {
+                document.addEventListener('mousemove', (e) => {
+                    const rect = title3d.getBoundingClientRect();
+                    const titleCenterX = rect.left + rect.width / 2;
+                    const titleCenterY = rect.top + rect.height / 2;
+
+                    const deltaX = e.clientX - titleCenterX;
+                    const deltaY = e.clientY - titleCenterY;
+                    const dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+                    const maxDist = 750;
+                    if (dist < maxDist) {
+                        const proximityFactor = Math.pow(1 - dist / maxDist, 0.7);
+                        const rotateY = Math.min(Math.max((deltaX / (rect.width / 2)) * 16 * proximityFactor, -18), 18);
+                        const rotateX = Math.min(Math.max((-deltaY / (rect.height / 2)) * 16 * proximityFactor, -18), 18);
+                        const scale = 1 + (0.035 * proximityFactor);
+
+                        title3d.style.transform = `rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(${scale.toFixed(3)}, ${scale.toFixed(3)}, 1)`;
+                    } else {
+                        title3d.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                    }
+                });
+
+                document.addEventListener('mouseleave', () => {
+                    title3d.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                });
+            }
+
+            /* ==========================================================================
+               5. COUNTDOWN TIMER
+               ========================================================================== */
+            let targetDate = new Date('2026-07-27T00:00:00').getTime();
+            const nowTime = new Date().getTime();
+            
+            if (targetDate <= nowTime) {
+                targetDate = nowTime + (14 * 24 * 60 * 60 * 1000) + (8 * 60 * 60 * 1000);
+            }
+
+            const elDays = document.getElementById('timerDays');
+            const elHours = document.getElementById('timerHours');
+            const elMinutes = document.getElementById('timerMinutes');
+            const elSeconds = document.getElementById('timerSeconds');
+
+            function updateCountdown() {
+                const current = new Date().getTime();
+                const diff = targetDate - current;
+
+                if (diff <= 0) {
+                    elDays.textContent = '00';
+                    elHours.textContent = '00';
+                    elMinutes.textContent = '00';
+                    elSeconds.textContent = '00';
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                elDays.textContent = String(days).padStart(2, '0');
+                elHours.textContent = String(hours).padStart(2, '0');
+                elMinutes.textContent = String(minutes).padStart(2, '0');
+                elSeconds.textContent = String(seconds).padStart(2, '0');
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+
+            /* ==========================================================================
+               6. FORM VALIDATION & MODAL SUBMISSION
+               ========================================================================== */
+            const regForm = document.getElementById('registrationForm');
+            const inputName = document.getElementById('fullName');
+            const inputEmail = document.getElementById('emailAddr');
+            const inputTeam = document.getElementById('teamName');
+
+            const modal = document.getElementById('ticketModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const modalOkBtn = document.getElementById('modalOkBtn');
+
+            const modalParticipantName = document.getElementById('modalParticipantName');
+            const modalParticipantEmail = document.getElementById('modalParticipantEmail');
+            const modalTeamName = document.getElementById('modalTeamName');
+            const modalPassCode = document.getElementById('modalPassCode');
+
+            function validateEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(String(email).toLowerCase());
+            }
+
+            regForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                let isValid = true;
+
+                if (!inputName.value.trim()) {
+                    inputName.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    inputName.classList.remove('is-invalid');
+                }
+
+                if (!inputEmail.value.trim() || !validateEmail(inputEmail.value.trim())) {
+                    inputEmail.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    inputEmail.classList.remove('is-invalid');
+                }
+
+                if (isValid) {
+                    playSuccessChime();
+
+                    const randomId = Math.floor(1000 + Math.random() * 9000);
+
+                    modalParticipantName.textContent = inputName.value.trim();
+                    modalParticipantEmail.textContent = inputEmail.value.trim();
+                    modalTeamName.textContent = inputTeam.value.trim() || 'SOLO HACKER';
+                    modalPassCode.textContent = `#CS2K26-${randomId}`;
+
+                    modal.classList.add('active');
+                    regForm.reset();
+                } else {
+                    playBeep(160, 0.15, 'sawtooth');
+                }
+            });
+
+            inputName.addEventListener('input', () => inputName.classList.remove('is-invalid'));
+            inputEmail.addEventListener('input', () => inputEmail.classList.remove('is-invalid'));
+
+            function closeModal() {
+                modal.classList.remove('active');
+                playBeep(300, 0.05, 'sine');
+            }
+
+            closeModalBtn.addEventListener('click', closeModal);
+            modalOkBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+
+            /* ==========================================================================
+               7. CLEAN SOLID EMBER CANVAS PARTICLES (THEME-AWARE RENDERER)
+               ========================================================================== */
+            const canvas = document.getElementById('bg-canvas');
+            const ctx = canvas.getContext('2d');
+
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            const particles = [];
+            const particleCount = Math.min(Math.floor(window.innerWidth / 18), 60);
+
+            class EmberParticle {
+                constructor() {
+                    this.reset();
+                }
+
+                reset() {
+                    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+                    const darkColors = ['#ff4500', '#e62e00', '#ff6600', '#cc2400'];
+                    const lightColors = ['#ea580c', '#dc2626', '#d97706', '#c2410c'];
+                    const palette = isLight ? lightColors : darkColors;
+
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = - (Math.random() * 0.6 + 0.2);
+                    this.radius = Math.random() * 2 + 0.8;
+                    this.color = palette[Math.floor(Math.random() * palette.length)];
+                    this.alpha = Math.random() * 0.6 + 0.25;
+                    this.decay = Math.random() * 0.004 + 0.002;
+                }
+
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    this.alpha -= this.decay;
+
+                    if (this.y < 0 || this.alpha <= 0 || this.x < 0 || this.x > width) {
+                        this.reset();
+                        this.y = height + 10;
+                    }
+                }
+
+                draw() {
+                    ctx.save();
+                    ctx.globalAlpha = Math.max(0, this.alpha);
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new EmberParticle());
+            }
+
+            let mouseX = -1000;
+            let mouseY = -1000;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function animateCanvas() {
+                ctx.clearRect(0, 0, width, height);
+
+                const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+                const strokeColor = isLight ? 'rgba(234, 88, 12,' : 'rgba(255, 69, 0,';
+
+                for (let i = 0; i < particles.length; i++) {
+                    const p1 = particles[i];
+                    p1.update();
+                    p1.draw();
+
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const p2 = particles[j];
+                        const dx = p1.x - p2.x;
+                        const dy = p1.y - p2.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+
+                        if (dist < 100) {
+                            ctx.save();
+                            ctx.beginPath();
+                            ctx.moveTo(p1.x, p1.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.strokeStyle = `${strokeColor} ${0.15 * (1 - dist / 100)})`;
+                            ctx.lineWidth = 0.75;
+                            ctx.stroke();
+                            ctx.restore();
+                        }
+                    }
+
+                    const mdx = p1.x - mouseX;
+                    const mdy = p1.y - mouseY;
+                    const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+                    if (mdist < 120) {
+                        ctx.save();
+                        ctx.beginPath();
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(mouseX, mouseY);
+                        ctx.strokeStyle = `${strokeColor} ${0.25 * (1 - mdist / 120)})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+                }
+
+                requestAnimationFrame(animateCanvas);
+            }
+
+            animateCanvas();
+
+        });
+    </script>
+</body>
+</html>
