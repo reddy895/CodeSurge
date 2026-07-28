@@ -243,10 +243,12 @@
             const elTeamCode = document.getElementById('verifyTeamCode');
             const elCollege = document.getElementById('verifyCollege');
             const elTotalCount = document.getElementById('verifyTotalCount');
-            const elMembersList = document.getElementById('verifyMembersList');
+            const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+                ? 'http://localhost:5000'
+                : '';
 
             // Query backend verification API
-            fetch(`http://localhost:5000/api/teams/verify/${encodeURIComponent(teamCode)}`)
+            fetch(`${API_BASE}/api/teams/verify/${encodeURIComponent(teamCode)}`)
                 .then(res => res.json())
                 .then(data => {
                     if (data.success && data.verified) {

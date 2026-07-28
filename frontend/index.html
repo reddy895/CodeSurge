@@ -2713,6 +2713,10 @@
                 return re.test(String(email).toLowerCase());
             }
 
+            const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+                ? 'http://localhost:5000'
+                : '';
+
             regForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 let isValid = true;
@@ -2742,7 +2746,7 @@
                     const college_name = inputCollege.value.trim();
 
                     try {
-                        const res = await fetch('http://localhost:5000/api/auth/login/leader', {
+                        const res = await fetch(`${API_BASE}/api/auth/login/leader`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ email, college_name })
@@ -2834,8 +2838,8 @@
                 const year_of_study = inputYear.value;
 
                 const endpoint = role === 'leader'
-                    ? 'http://localhost:5000/api/auth/register/leader'
-                    : 'http://localhost:5000/api/auth/register/member';
+                    ? `${API_BASE}/api/auth/register/leader`
+                    : `${API_BASE}/api/auth/register/member`;
 
                 const bodyData = role === 'leader'
                     ? { name, email, phone, college_name, year_of_study, team_name: inputTeam.value.trim() }
