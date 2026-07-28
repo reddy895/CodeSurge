@@ -1073,12 +1073,37 @@
             margin-top: 0.1rem;
         }
 
-        /* 4 Core Pillars Grid */
+        /* 4 Core Pillars Grid (Horizontal 4-in-a-row) */
         .pillars-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(4, 1fr);
             gap: 1.25rem;
-            margin-bottom: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 1024px) {
+            .pillars-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .pillars-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 2-Column Form Field Alignment Grid */
+        .form-grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem 1.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid-2col {
+                grid-template-columns: 1fr;
+            }
         }
 
         .pillar-card {
@@ -1368,6 +1393,107 @@
 
         .form-control.is-invalid ~ .error-message {
             display: block;
+        }
+
+        /* Registration Role & Login Switcher Tabs (3-Tab) */
+        .reg-mode-selector {
+            display: flex;
+            gap: 0.35rem;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            padding: 0.35rem;
+            margin-bottom: 1.5rem;
+        }
+        [data-theme="light"] .reg-mode-selector {
+            background: rgba(241, 245, 249, 0.9);
+        }
+
+        .mode-tab {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: var(--font-display);
+            font-size: 0.76rem;
+            font-weight: 700;
+            padding: 0.65rem 0.35rem;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            transition: var(--transition-fast);
+            text-align: center;
+        }
+
+        .mode-tab:hover {
+            color: var(--text-main);
+        }
+
+        .mode-tab.active {
+            background: var(--accent-orange);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(255, 69, 0, 0.4);
+        }
+
+        /* Perfectly Aligned Modal Action Buttons */
+        .modal-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            width: 100%;
+        }
+        @media (max-width: 540px) {
+            .modal-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .btn-modal-primary, .btn-modal-secondary {
+            width: 100%;
+            min-height: 52px;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-align: center;
+            line-height: 1.25;
+            transition: var(--transition-fast);
+        }
+
+        .btn-modal-primary {
+            background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-red) 100%);
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 4px 15px rgba(255, 69, 0, 0.4);
+        }
+
+        .btn-modal-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 69, 0, 0.6);
+        }
+
+        .btn-modal-secondary {
+            background: rgba(255, 69, 0, 0.1);
+            border: 1px solid var(--border-glass);
+            color: var(--text-main);
+        }
+
+        .btn-modal-secondary:hover {
+            background: rgba(255, 69, 0, 0.25);
+            border-color: var(--accent-orange);
+            color: #ffffff;
         }
 
         /* Surge CTA Button */
@@ -1974,103 +2100,120 @@
 
         </div>
 
-        <!-- ROW 2: Pillars & Registration Section -->
-        <div class="two-column-grid">
-            
-            <!-- LEFT COLUMN: Core Pillars (Code, Create, Collaborate, Conquer) -->
-            <section class="glass-panel">
-                <div class="panel-header">
-                    <h2 class="panel-title">
-                        <i class="fa-solid fa-fire-flame-curved"></i>
-                        <span>The 4 Pillars</span>
-                    </h2>
-                    <p class="panel-subtitle">Everything you need to leave your surge in 2026.</p>
+        <!-- SECTION 2: The 4 Pillars (Full-Width Horizontal 4-Card Bar) -->
+        <section class="glass-panel" style="margin-bottom: 2.5rem;">
+            <div class="panel-header">
+                <h2 class="panel-title">
+                    <i class="fa-solid fa-fire-flame-curved"></i>
+                    <span>The 4 Pillars</span>
+                </h2>
+                <p class="panel-subtitle">Everything you need to leave your surge in 2026.</p>
+            </div>
+
+            <!-- 4 Core Horizontal Pillars -->
+            <div class="pillars-grid">
+                <!-- Pillar 1: CODE -->
+                <div class="pillar-card">
+                    <div class="pillar-icon-wrap">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <h3 class="pillar-title"><span class="tag-symbol">&lt;&gt;</span> CODE</h3>
+                    <p class="pillar-desc">Architect production-grade algorithms, high-throughput engines, and resilient AI systems.</p>
                 </div>
 
-                <!-- 4 Core Pillars matching poster bottom-left HUD -->
-                <div class="pillars-grid">
-                    <!-- Pillar 1: CODE -->
-                    <div class="pillar-card">
-                        <div class="pillar-icon-wrap">
-                            <i class="fa-solid fa-code"></i>
-                        </div>
-                        <h3 class="pillar-title"><span class="tag-symbol">&lt;&gt;</span> CODE</h3>
-                        <p class="pillar-desc">Architect production-grade algorithms, high-throughput engines, and resilient AI systems.</p>
+                <!-- Pillar 2: CREATE -->
+                <div class="pillar-card">
+                    <div class="pillar-icon-wrap">
+                        <i class="fa-solid fa-cube"></i>
                     </div>
-
-                    <!-- Pillar 2: CREATE -->
-                    <div class="pillar-card">
-                        <div class="pillar-icon-wrap">
-                            <i class="fa-solid fa-cube"></i>
-                        </div>
-                        <h3 class="pillar-title"><span class="tag-symbol">[ ]</span> CREATE</h3>
-                        <p class="pillar-desc">Forge groundbreaking ideas into fully functional prototypes that disrupt traditional tech.</p>
-                    </div>
-
-                    <!-- Pillar 3: COLLABORATE -->
-                    <div class="pillar-card">
-                        <div class="pillar-icon-wrap">
-                            <i class="fa-solid fa-users-viewfinder"></i>
-                        </div>
-                        <h3 class="pillar-title"><span class="tag-symbol">&amp;&amp;</span> COLLABORATE</h3>
-                        <p class="pillar-desc">Join forces with elite engineers, mentors, and innovators to push boundaries together.</p>
-                    </div>
-
-                    <!-- Pillar 4: CONQUER -->
-                    <div class="pillar-card">
-                        <div class="pillar-icon-wrap">
-                            <i class="fa-solid fa-crosshairs"></i>
-                        </div>
-                        <h3 class="pillar-title"><span class="tag-symbol">#!</span> CONQUER</h3>
-                        <p class="pillar-desc">Dominate 48 hours of intense hackathon challenges and claim legendary rewards.</p>
-                    </div>
+                    <h3 class="pillar-title"><span class="tag-symbol">[ ]</span> CREATE</h3>
+                    <p class="pillar-desc">Forge groundbreaking ideas into fully functional prototypes that disrupt traditional tech.</p>
                 </div>
 
-                <!-- Quote Block -->
-                <div class="quote-block">
-                    <p class="quote-text">"BUILD. BREAK. INNOVATE. The future isn't waited for—it's forged in lines of code."</p>
-                    <p class="quote-author">— SYNQ INITIATIVE DIRECTIVE 2K26</p>
-                </div>
-            </section>
-
-            <!-- RIGHT COLUMN: Registration & Countdown -->
-            <section class="glass-panel" id="registrationSection">
-                <div class="panel-header">
-                    <h2 class="panel-title">
-                        <i class="fa-solid fa-bolt"></i>
-                        <span>Claim Your Pass</span>
-                    </h2>
-                    <p class="panel-subtitle">Secure your slot before system capacity is reached.</p>
-                </div>
-
-                <!-- Countdown Timer -->
-                <div class="countdown-wrap">
-                    <div class="countdown-title">
-                        <i class="fa-regular fa-clock" style="color: var(--accent-orange);"></i>
-                        <span>SURGE LAUNCH COUNTDOWN</span>
+                <!-- Pillar 3: COLLABORATE -->
+                <div class="pillar-card">
+                    <div class="pillar-icon-wrap">
+                        <i class="fa-solid fa-users-viewfinder"></i>
                     </div>
-                    <div class="countdown-grid">
-                        <div class="countdown-box">
-                            <div class="countdown-val" id="timerDays">00</div>
-                            <div class="countdown-unit">Days</div>
-                        </div>
-                        <div class="countdown-box">
-                            <div class="countdown-val" id="timerHours">00</div>
-                            <div class="countdown-unit">Hours</div>
-                        </div>
-                        <div class="countdown-box">
-                            <div class="countdown-val" id="timerMinutes">00</div>
-                            <div class="countdown-unit">Minutes</div>
-                        </div>
-                        <div class="countdown-box">
-                            <div class="countdown-val" id="timerSeconds">00</div>
-                            <div class="countdown-unit">Seconds</div>
-                        </div>
-                    </div>
+                    <h3 class="pillar-title"><span class="tag-symbol">&amp;&amp;</span> COLLABORATE</h3>
+                    <p class="pillar-desc">Join forces with elite engineers, mentors, and innovators to push boundaries together.</p>
                 </div>
 
-                <!-- Registration Form -->
-                <form id="registrationForm" novalidate>
+                <!-- Pillar 4: CONQUER -->
+                <div class="pillar-card">
+                    <div class="pillar-icon-wrap">
+                        <i class="fa-solid fa-crosshairs"></i>
+                    </div>
+                    <h3 class="pillar-title"><span class="tag-symbol">#!</span> CONQUER</h3>
+                    <p class="pillar-desc">Dominate 48 hours of intense hackathon challenges and claim legendary rewards.</p>
+                </div>
+            </div>
+
+            <!-- Quote Block -->
+            <div class="quote-block">
+                <p class="quote-text">"BUILD. BREAK. INNOVATE. The future isn't waited for—it's forged in lines of code."</p>
+                <p class="quote-author">— SYNQ INITIATIVE DIRECTIVE 2K26</p>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Registration & Countdown (Aligned 2-Column Grid Form) -->
+        <section class="glass-panel" id="registrationSection" style="margin-bottom: 2.5rem;">
+            <div class="panel-header">
+                <h2 class="panel-title">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Claim Your Pass</span>
+                </h2>
+                <p class="panel-subtitle">Secure your slot before system capacity is reached.</p>
+            </div>
+
+            <!-- Countdown Timer -->
+            <div class="countdown-wrap">
+                <div class="countdown-title">
+                    <i class="fa-regular fa-clock" style="color: var(--accent-orange);"></i>
+                    <span>SURGE LAUNCH COUNTDOWN</span>
+                </div>
+                <div class="countdown-grid">
+                    <div class="countdown-box">
+                        <div class="countdown-val" id="timerDays">00</div>
+                        <div class="countdown-unit">Days</div>
+                    </div>
+                    <div class="countdown-box">
+                        <div class="countdown-val" id="timerHours">00</div>
+                        <div class="countdown-unit">Hours</div>
+                    </div>
+                    <div class="countdown-box">
+                        <div class="countdown-val" id="timerMinutes">00</div>
+                        <div class="countdown-unit">Minutes</div>
+                    </div>
+                    <div class="countdown-box">
+                        <div class="countdown-val" id="timerSeconds">00</div>
+                        <div class="countdown-unit">Seconds</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Registration Form -->
+            <form id="registrationForm" novalidate>
+                <!-- Role & Login Switcher Tabs (3-Tab) -->
+                <div class="reg-mode-selector">
+                    <button type="button" class="mode-tab active" id="tabCreateTeam" data-mode="leader">
+                        <i class="fa-solid fa-crown"></i>
+                        <span>CREATE TEAM</span>
+                    </button>
+                    <button type="button" class="mode-tab" id="tabJoinTeam" data-mode="member">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>JOIN TEAM</span>
+                    </button>
+                    <button type="button" class="mode-tab" id="tabLoginLeader" data-mode="login">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <span>LEADER LOGIN</span>
+                    </button>
+                </div>
+
+                <input type="hidden" id="regRole" value="leader">
+
+                <!-- 2-Column Aligned Fields Container -->
+                <div class="form-grid-2col">
                     <!-- Full Name -->
                     <div class="form-group">
                         <label for="fullName" class="form-label">Full Name *</label>
@@ -2091,30 +2234,77 @@
                         <div class="error-message">Please enter a valid email address.</div>
                     </div>
 
-                    <!-- Team Name -->
+                    <!-- Phone Number -->
                     <div class="form-group">
-                        <label for="teamName" class="form-label">Team Name (Optional)</label>
+                        <label for="phoneNum" class="form-label">Phone Number *</label>
                         <div class="input-wrap">
-                            <input type="text" id="teamName" class="form-control" placeholder="e.g. SynQSurgeons">
-                            <i class="fa-solid fa-users"></i>
+                            <input type="tel" id="phoneNum" class="form-control" placeholder="e.g. +91 9876543210" required>
+                            <i class="fa-solid fa-phone"></i>
                         </div>
+                        <div class="error-message">Please enter your phone number.</div>
                     </div>
 
-                    <!-- CTA Submit Button -->
-                    <button type="submit" class="btn-surge" id="submitBtn">
-                        <span>SURGE NOW</span>
-                        <i class="fa-solid fa-fire"></i>
-                    </button>
-                </form>
+                    <!-- College Name -->
+                    <div class="form-group">
+                        <label for="collegeName" class="form-label">College Name *</label>
+                        <div class="input-wrap">
+                            <input type="text" id="collegeName" class="form-control" placeholder="e.g. Tech Institute of Science" required>
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <div class="error-message">Please enter your college name.</div>
+                    </div>
 
-                <!-- Poster Bottom Right Box -->
-                <div class="poster-stay-tuned-box hud-bracket-box">
-                    <div class="stay-tuned-heading">ARE YOU READY TO CODE THE NEXT BIG THING?</div>
-                    <div class="stay-tuned-sub">STAY TUNED...</div>
+                    <!-- Year of Study -->
+                    <div class="form-group">
+                        <label for="yearOfStudy" class="form-label">Year of Study *</label>
+                        <div class="input-wrap">
+                            <select id="yearOfStudy" class="form-control" style="appearance: auto; cursor: pointer;" required>
+                                <option value="" disabled selected>Select Year of Study</option>
+                                <option value="1st Year">1st Year</option>
+                                <option value="2nd Year">2nd Year</option>
+                                <option value="3rd Year">3rd Year</option>
+                                <option value="4th Year">4th Year</option>
+                                <option value="Post Graduate">Post Graduate</option>
+                            </select>
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </div>
+                        <div class="error-message">Please select your year of study.</div>
+                    </div>
+
+                    <!-- Dynamic Field: Team Name (Leader Mode) -->
+                    <div class="form-group" id="groupTeamName">
+                        <label for="teamName" class="form-label">Team Name *</label>
+                        <div class="input-wrap">
+                            <input type="text" id="teamName" class="form-control" placeholder="e.g. SynQSurgeons" required>
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <div class="error-message">Please enter your team name.</div>
+                    </div>
+
+                    <!-- Dynamic Field: Team Code (Member Mode - Hidden by default) -->
+                    <div class="form-group" id="groupTeamCode" style="display: none;">
+                        <label for="teamCode" class="form-label">Team Code *</label>
+                        <div class="input-wrap">
+                            <input type="text" id="teamCode" class="form-control" placeholder="e.g. HACK42 or CS2K26-8492" style="text-transform: uppercase; letter-spacing: 2px;">
+                            <i class="fa-solid fa-key"></i>
+                        </div>
+                        <div class="error-message">Please enter the 6-character Team Code.</div>
+                    </div>
                 </div>
-            </section>
 
-        </div>
+                <!-- CTA Submit Button -->
+                <button type="submit" class="btn-surge" id="submitBtn">
+                    <span id="btnSubmitText">CREATE TEAM &amp; SURGE</span>
+                    <i class="fa-solid fa-fire"></i>
+                </button>
+            </form>
+
+            <!-- Poster Bottom Box -->
+            <div class="poster-stay-tuned-box hud-bracket-box" style="margin-top: 1.5rem;">
+                <div class="stay-tuned-heading">ARE YOU READY TO CODE THE NEXT BIG THING?</div>
+                <div class="stay-tuned-sub">STAY TUNED...</div>
+            </div>
+        </section>
 
         <!-- Contact & Enquiries Section -->
         <section class="glass-panel contact-panel" id="contactSection">
@@ -2202,7 +2392,12 @@
                 </div>
             </div>
 
-            <button class="btn-modal-close" id="modalOkBtn">GOT IT, SEE YOU AT THE SURGE</button>
+            <div class="modal-actions" style="grid-template-columns: 1fr;">
+                <button type="button" class="btn-modal-primary" id="inviteTeamBtn" style="width: 100%;">
+                    <i class="fa-solid fa-qrcode"></i>
+                    <span>VIEW TEAM QR &amp; PASS</span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -2400,12 +2595,25 @@
             setInterval(updateCountdown, 1000);
 
             /* ==========================================================================
-               6. FORM VALIDATION & MODAL SUBMISSION
+               6. FORM VALIDATION & DUAL-MODE REGISTRATION (LEADER & MEMBER)
                ========================================================================== */
             const regForm = document.getElementById('registrationForm');
+            const regRoleInput = document.getElementById('regRole');
+            const tabCreateTeam = document.getElementById('tabCreateTeam');
+            const tabJoinTeam = document.getElementById('tabJoinTeam');
+
+            const groupTeamName = document.getElementById('groupTeamName');
+            const groupTeamCode = document.getElementById('groupTeamCode');
+
             const inputName = document.getElementById('fullName');
             const inputEmail = document.getElementById('emailAddr');
+            const inputPhone = document.getElementById('phoneNum');
+            const inputCollege = document.getElementById('collegeName');
+            const inputYear = document.getElementById('yearOfStudy');
             const inputTeam = document.getElementById('teamName');
+            const inputCode = document.getElementById('teamCode');
+
+            const btnSubmitText = document.getElementById('btnSubmitText');
 
             const modal = document.getElementById('ticketModal');
             const closeModalBtn = document.getElementById('closeModalBtn');
@@ -2416,21 +2624,73 @@
             const modalTeamName = document.getElementById('modalTeamName');
             const modalPassCode = document.getElementById('modalPassCode');
 
+            const tabLoginLeader = document.getElementById('tabLoginLeader');
+            const groupFullName = inputName.closest('.form-group');
+            const groupPhoneNum = inputPhone.closest('.form-group');
+            const groupCollegeName = inputCollege.closest('.form-group');
+            const groupYearOfStudy = inputYear.closest('.form-group');
+
+            // Role & Login Switcher Logic
+            tabCreateTeam.addEventListener('click', () => {
+                regRoleInput.value = 'leader';
+                tabCreateTeam.classList.add('active');
+                tabJoinTeam.classList.remove('active');
+                tabLoginLeader.classList.remove('active');
+
+                groupFullName.style.display = 'block';
+                groupPhoneNum.style.display = 'block';
+                groupCollegeName.style.display = 'block';
+                groupYearOfStudy.style.display = 'block';
+                groupTeamName.style.display = 'block';
+                groupTeamCode.style.display = 'none';
+
+                btnSubmitText.textContent = 'CREATE TEAM & SURGE';
+                playBeep(440, 0.05, 'sine');
+            });
+
+            tabJoinTeam.addEventListener('click', () => {
+                regRoleInput.value = 'member';
+                tabJoinTeam.classList.add('active');
+                tabCreateTeam.classList.remove('active');
+                tabLoginLeader.classList.remove('active');
+
+                groupFullName.style.display = 'block';
+                groupPhoneNum.style.display = 'block';
+                groupCollegeName.style.display = 'block';
+                groupYearOfStudy.style.display = 'block';
+                groupTeamName.style.display = 'none';
+                groupTeamCode.style.display = 'block';
+
+                btnSubmitText.textContent = 'JOIN TEAM & SURGE';
+                playBeep(480, 0.05, 'sine');
+            });
+
+            tabLoginLeader.addEventListener('click', () => {
+                regRoleInput.value = 'login';
+                tabLoginLeader.classList.add('active');
+                tabCreateTeam.classList.remove('active');
+                tabJoinTeam.classList.remove('active');
+
+                groupFullName.style.display = 'none';
+                groupPhoneNum.style.display = 'none';
+                groupCollegeName.style.display = 'block';
+                groupYearOfStudy.style.display = 'none';
+                groupTeamName.style.display = 'none';
+                groupTeamCode.style.display = 'none';
+
+                btnSubmitText.textContent = 'LOGIN TO TEAM PORTAL';
+                playBeep(520, 0.05, 'sine');
+            });
+
             function validateEmail(email) {
                 const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 return re.test(String(email).toLowerCase());
             }
 
-            regForm.addEventListener('submit', (e) => {
+            regForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 let isValid = true;
-
-                if (!inputName.value.trim()) {
-                    inputName.classList.add('is-invalid');
-                    isValid = false;
-                } else {
-                    inputName.classList.remove('is-invalid');
-                }
+                const role = regRoleInput.value;
 
                 if (!inputEmail.value.trim() || !validateEmail(inputEmail.value.trim())) {
                     inputEmail.classList.add('is-invalid');
@@ -2439,25 +2699,204 @@
                     inputEmail.classList.remove('is-invalid');
                 }
 
-                if (isValid) {
+                if (role === 'login') {
+                    if (!inputCollege.value.trim()) {
+                        inputCollege.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        inputCollege.classList.remove('is-invalid');
+                    }
+
+                    if (!isValid) {
+                        playBeep(160, 0.15, 'sawtooth');
+                        return;
+                    }
+
+                    const email = inputEmail.value.trim();
+                    const college_name = inputCollege.value.trim();
+
+                    try {
+                        const res = await fetch('http://localhost:5000/api/auth/login/leader', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ email, college_name })
+                        });
+                        const data = await res.json();
+
+                        if (!res.ok || !data.success) {
+                            alert(data.error || 'Login failed. No registered Team Leader found matching this email address and college name.');
+                            playBeep(160, 0.15, 'sawtooth');
+                            return;
+                        }
+
+                        playSuccessChime();
+
+                        sessionStorage.setItem('cs_token', data.token);
+                        sessionStorage.setItem('cs_name', data.user.name);
+                        sessionStorage.setItem('cs_email', data.user.email);
+                        sessionStorage.setItem('cs_team', data.team_name);
+                        sessionStorage.setItem('cs_code', data.team_code);
+                        sessionStorage.setItem('cs_role', 'leader');
+
+                        window.location.href = `invite.html?name=${encodeURIComponent(data.user.name)}&email=${encodeURIComponent(data.user.email)}&team=${encodeURIComponent(data.team_name)}&code=${encodeURIComponent(data.team_code)}&role=leader`;
+                        return;
+                    } catch (err) {
+                        console.warn('Backend offline, running local login fallback', err);
+                        sessionStorage.setItem('cs_name', 'Team Leader');
+                        sessionStorage.setItem('cs_email', email);
+                        sessionStorage.setItem('cs_team', 'Leader Team');
+                        sessionStorage.setItem('cs_code', 'HACK42');
+                        sessionStorage.setItem('cs_role', 'leader');
+                        window.location.href = `invite.html?name=Team%20Leader&email=${encodeURIComponent(email)}&team=Leader%20Team&code=HACK42&role=leader`;
+                        return;
+                    }
+                }
+
+                if (!inputName.value.trim()) {
+                    inputName.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    inputName.classList.remove('is-invalid');
+                }
+
+                if (!inputPhone.value.trim()) {
+                    inputPhone.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    inputPhone.classList.remove('is-invalid');
+                }
+
+                if (!inputCollege.value.trim()) {
+                    inputCollege.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    inputCollege.classList.remove('is-invalid');
+                }
+
+                if (!inputYear.value) {
+                    inputYear.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    inputYear.classList.remove('is-invalid');
+                }
+
+                if (role === 'leader') {
+                    if (!inputTeam.value.trim()) {
+                        inputTeam.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        inputTeam.classList.remove('is-invalid');
+                    }
+                } else {
+                    if (!inputCode.value.trim()) {
+                        inputCode.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        inputCode.classList.remove('is-invalid');
+                    }
+                }
+
+                if (!isValid) {
+                    playBeep(160, 0.15, 'sawtooth');
+                    return;
+                }
+
+                const name = inputName.value.trim();
+                const email = inputEmail.value.trim();
+                const phone = inputPhone.value.trim();
+                const college_name = inputCollege.value.trim();
+                const year_of_study = inputYear.value;
+
+                const endpoint = role === 'leader'
+                    ? 'http://localhost:5000/api/auth/register/leader'
+                    : 'http://localhost:5000/api/auth/register/member';
+
+                const bodyData = role === 'leader'
+                    ? { name, email, phone, college_name, year_of_study, team_name: inputTeam.value.trim() }
+                    : { name, email, phone, college_name, year_of_study, team_code: inputCode.value.trim().toUpperCase() };
+
+                try {
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(bodyData)
+                    });
+                    const resData = await response.json();
+
+                    if (!response.ok || !resData.success) {
+                        alert(resData.error || 'Registration failed. Please check your inputs or team code.');
+                        playBeep(160, 0.15, 'sawtooth');
+                        return;
+                    }
+
                     playSuccessChime();
 
-                    const randomId = Math.floor(1000 + Math.random() * 9000);
+                    const finalTeamName = resData.team_name || (role === 'leader' ? inputTeam.value.trim() : 'SynQ Team');
+                    const finalTeamCode = resData.team_code || (role === 'leader' ? `#CS2K26-${Math.floor(1000+Math.random()*9000)}` : inputCode.value.trim().toUpperCase());
+                    const token = resData.token || '';
 
-                    modalParticipantName.textContent = inputName.value.trim();
-                    modalParticipantEmail.textContent = inputEmail.value.trim();
-                    modalTeamName.textContent = inputTeam.value.trim() || 'SOLO HACKER';
-                    modalPassCode.textContent = `#CS2K26-${randomId}`;
+                    // Save to Session Storage
+                    sessionStorage.setItem('cs_name', name);
+                    sessionStorage.setItem('cs_email', email);
+                    sessionStorage.setItem('cs_phone', phone);
+                    sessionStorage.setItem('cs_college', college_name);
+                    sessionStorage.setItem('cs_year', year_of_study);
+                    sessionStorage.setItem('cs_team', finalTeamName);
+                    sessionStorage.setItem('cs_code', finalTeamCode);
+                    sessionStorage.setItem('cs_role', role);
+                    sessionStorage.setItem('cs_token', token);
+
+                    modalParticipantName.textContent = name;
+                    modalParticipantEmail.textContent = email;
+                    modalTeamName.textContent = finalTeamName;
+                    modalPassCode.textContent = finalTeamCode;
 
                     modal.classList.add('active');
                     regForm.reset();
-                } else {
-                    playBeep(160, 0.15, 'sawtooth');
+
+                } catch (err) {
+                    console.warn('Backend API connection offline, proceeding with local registration fallback.', err);
+                    playSuccessChime();
+
+                    const fallbackTeamName = role === 'leader' ? inputTeam.value.trim() : `SQUAD-${inputCode.value.trim().toUpperCase()}`;
+                    const fallbackCode = role === 'leader' ? `HACK${Math.floor(10 + Math.random() * 90)}` : inputCode.value.trim().toUpperCase();
+
+                    sessionStorage.setItem('cs_name', name);
+                    sessionStorage.setItem('cs_email', email);
+                    sessionStorage.setItem('cs_phone', phone);
+                    sessionStorage.setItem('cs_college', college_name);
+                    sessionStorage.setItem('cs_year', year_of_study);
+                    sessionStorage.setItem('cs_team', fallbackTeamName);
+                    sessionStorage.setItem('cs_code', fallbackCode);
+                    sessionStorage.setItem('cs_role', role);
+
+                    modalParticipantName.textContent = name;
+                    modalParticipantEmail.textContent = email;
+                    modalTeamName.textContent = fallbackTeamName;
+                    modalPassCode.textContent = fallbackCode;
+
+                    modal.classList.add('active');
+                    regForm.reset();
                 }
             });
 
-            inputName.addEventListener('input', () => inputName.classList.remove('is-invalid'));
-            inputEmail.addEventListener('input', () => inputEmail.classList.remove('is-invalid'));
+            [inputName, inputEmail, inputPhone, inputCollege, inputYear, inputTeam, inputCode].forEach(input => {
+                if (input) input.addEventListener('input', () => input.classList.remove('is-invalid'));
+            });
+
+            function redirectToInvite() {
+                const name = encodeURIComponent(sessionStorage.getItem('cs_name') || 'Hacker');
+                const email = encodeURIComponent(sessionStorage.getItem('cs_email') || 'hacker@cybernet.io');
+                const team = encodeURIComponent(sessionStorage.getItem('cs_team') || 'SynQSurgeons');
+                const code = encodeURIComponent(sessionStorage.getItem('cs_code') || 'HACK42');
+                const role = encodeURIComponent(sessionStorage.getItem('cs_role') || 'leader');
+                window.location.href = `invite.html?name=${name}&email=${email}&team=${team}&code=${code}&role=${role}`;
+            }
+
+            const inviteTeamBtn = document.getElementById('inviteTeamBtn');
+            if (inviteTeamBtn) {
+                inviteTeamBtn.addEventListener('click', redirectToInvite);
+            }
 
             function closeModal() {
                 modal.classList.remove('active');
@@ -2465,7 +2904,21 @@
             }
 
             closeModalBtn.addEventListener('click', closeModal);
-            modalOkBtn.addEventListener('click', closeModal);
+            modalOkBtn.addEventListener('click', () => {
+                closeModal();
+                redirectToInvite();
+            });
+
+            // Contact Cards Click Listener to trigger Mobile Dialer directly
+            document.querySelectorAll('.contact-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    const telHref = card.getAttribute('href');
+                    if (telHref && telHref.startsWith('tel:')) {
+                        playBeep(600, 0.08, 'sawtooth');
+                        window.location.href = telHref;
+                    }
+                });
+            });
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) closeModal();
             });

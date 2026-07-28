@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CODE SURGE 2K26 - Team Invitation Portal. Assemble your squad for the ultimate hackathon surge.">
+    <meta name="theme-color" content="#060302">
+    <title>Invite Your Team | CODE SURGE 2K26</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Syncopate:wght@700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* ==========================================================================
+           1. CSS CUSTOM PROPERTIES (DARK & LIGHT THEME TOKENS)
+           ========================================================================== */
+        :root {
+            --bg-primary: #060302;
+            --bg-secondary: #0c0705;
+            --bg-card: rgba(18, 10, 7, 0.85);
+            --bg-card-hover: rgba(28, 14, 9, 0.95);
+
+            --accent-orange: #ff4500; /* Lava Orange */
+            --accent-red: #ff2200;    /* Crimson Red */
+            --accent-amber: #e67700;  /* Warm Amber */
+
+            --text-main: #ffffff;
+            --text-muted: #9e8e85;
+            --text-orange: #ffaa80;
+            --text-silver: #e2e8f0;
+
+            --border-glass: rgba(255, 69, 0, 0.22);
+            --border-glass-hover: rgba(255, 69, 0, 0.6);
+
+            --font-display: 'Orbitron', sans-serif;
+            --font-heading: 'Syncopate', sans-serif;
+            --font-body: 'Rajdhani', sans-serif;
+            --font-mono: 'Share Tech Mono', monospace;
+
+            --transition-fast: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* LIGHT MODE THEME OVERRIDES */
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-hover: rgba(255, 255, 255, 0.98);
+
+            --accent-orange: #ea580c;
+            --accent-red: #dc2626;
+            --accent-amber: #d97706;
+
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --text-orange: #c2410c;
+            --text-silver: #334155;
+
+            --border-glass: rgba(234, 88, 12, 0.25);
+            --border-glass-hover: rgba(234, 88, 12, 0.65);
+        }
+
+        /* Global Resets */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            line-height: 1.5;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .cyber-grid {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(to right, rgba(255, 69, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 69, 0, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Header Navigation */
+        .header-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            background: rgba(6, 3, 2, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-glass);
+        }
+        [data-theme="light"] .header-nav {
+            background: rgba(248, 250, 252, 0.88);
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .synq-nav-logo {
+            height: 38px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 0.85rem;
+            background: rgba(255, 69, 0, 0.1);
+            border: 1px solid var(--border-glass);
+            border-radius: 9999px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--accent-orange);
+            letter-spacing: 1px;
+        }
+
+        .status-dot {
+            width: 8px; height: 8px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #22c55e;
+            animation: pulseDot 2s infinite;
+        }
+        @keyframes pulseDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        .btn-nav-action {
+            background: rgba(255, 69, 0, 0.12);
+            border: 1px solid var(--border-glass);
+            color: var(--text-main);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        .btn-nav-action:hover {
+            background: var(--accent-orange);
+            color: #fff;
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.4);
+        }
+
+        .theme-toggle-btn, .sound-toggle-btn {
+            background: rgba(255, 69, 0, 0.12);
+            border: 1px solid var(--border-glass);
+            color: var(--accent-orange);
+            width: 38px; height: 38px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+            transition: var(--transition-fast);
+        }
+        .theme-toggle-btn:hover, .sound-toggle-btn:hover {
+            background: var(--accent-orange);
+            color: #fff;
+        }
+
+        /* Container Layout */
+        .main-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Glass Panel */
+        .glass-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            padding: 2rem;
+            backdrop-filter: blur(16px);
+            margin-bottom: 2rem;
+            position: relative;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .panel-header {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px dashed var(--border-glass);
+            padding-bottom: 1rem;
+        }
+        .panel-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-orange);
+            display: flex; align-items: center; gap: 0.75rem;
+        }
+        .panel-subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 0.3rem;
+        }
+
+        /* Ticket Banner */
+        .ticket-banner {
+            background: linear-gradient(135deg, rgba(255, 69, 0, 0.15) 0%, rgba(12, 7, 5, 0.9) 100%);
+            border: 1px solid var(--accent-orange);
+            border-radius: 10px;
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.2);
+        }
+        [data-theme="light"] .ticket-banner {
+            background: linear-gradient(135deg, rgba(234, 88, 12, 0.1) 0%, rgba(241, 245, 249, 0.95) 100%);
+        }
+
+        .ticket-field {
+            display: flex; flex-direction: column; gap: 0.25rem;
+        }
+        .ticket-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .ticket-value {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+        .ticket-value.highlight {
+            color: var(--accent-orange);
+        }
+
+        /* Form Group */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        @media (max-width: 768px) {
+            .grid-2col { grid-template-columns: 1fr; }
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        .form-label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-orange);
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.5px;
+        }
+        .input-wrap {
+            position: relative;
+        }
+        .input-wrap i {
+            position: absolute;
+            left: 1rem; top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .form-control {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-glass);
+            border-radius: 6px;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition-fast);
+        }
+        [data-theme="light"] .form-control {
+            background: #ffffff;
+        }
+        .form-control:focus {
+            border-color: var(--accent-orange);
+            box-shadow: 0 0 10px rgba(255, 69, 0, 0.3);
+        }
+
+        /* Buttons */
+        .btn-surge {
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-red));
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 0.85rem 1.5rem;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            transition: var(--transition-fast);
+            text-transform: uppercase;
+        }
+        .btn-surge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 69, 0, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 69, 0, 0.15);
+            border: 1px solid var(--accent-orange);
+            color: var(--accent-orange);
+            padding: 0.75rem 1.25rem;
+            border-radius: 6px;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition-fast);
+            text-decoration: none;
+        }
+        .btn-secondary:hover {
+            background: var(--accent-orange);
+            color: #ffffff;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: #ffffff;
+            border: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: 6px;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition-fast);
+            text-decoration: none;
+        }
+        .btn-whatsapp:hover {
+            background: #1da851;
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+        }
+
+        /* Share Link Box */
+        .share-box {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        @media (max-width: 600px) {
+            .share-box { flex-direction: column; }
+        }
+
+        /* Team Roster Grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1.5rem;
+        }
+
+        .member-card {
+            background: rgba(255, 69, 0, 0.05);
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: var(--transition-fast);
+        }
+        .member-card:hover {
+            border-color: var(--accent-orange);
+            background: rgba(255, 69, 0, 0.12);
+        }
+        .member-avatar {
+            width: 46px; height: 46px;
+            background: var(--accent-orange);
+            color: #fff;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 0 10px rgba(255, 69, 0, 0.4);
+        }
+        .member-details {
+            display: flex; flex-direction: column; gap: 0.2rem;
+            overflow: hidden;
+        }
+        .member-email {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .member-role {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-orange);
+            text-transform: uppercase;
+        }
+        .member-status {
+            font-size: 0.7rem;
+            color: #22c55e;
+            display: inline-flex; align-items: center; gap: 0.3rem;
+        }
+
+        /* Contact Cards (Mobile Dialer Redirection) */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1rem;
+        }
+
+        .contact-card {
+            background: rgba(255, 69, 0, 0.05);
+            border: 1px solid var(--border-glass);
+            border-radius: 10px;
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: var(--transition-fast);
+            cursor: pointer;
+        }
+        .contact-card:hover {
+            border-color: var(--accent-orange);
+            background: rgba(255, 69, 0, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 69, 0, 0.3);
+        }
+
+        .contact-icon-wrap {
+            width: 48px; height: 48px;
+            background: rgba(255, 69, 0, 0.15);
+            border: 1px solid var(--accent-orange);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--accent-orange);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .contact-card:hover .contact-icon-wrap {
+            background: var(--accent-orange);
+            color: #fff;
+        }
+
+        .contact-info {
+            display: flex; flex-direction: column; gap: 0.2rem;
+        }
+        .contact-name {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-main);
+        }
+        .contact-role {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-orange);
+            letter-spacing: 0.5px;
+        }
+        .contact-phone {
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            color: var(--accent-orange);
+            font-weight: 600;
+            display: flex; align-items: center; gap: 0.4rem;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem; right: 2rem;
+            background: var(--accent-orange);
+            color: #ffffff;
+            padding: 0.85rem 1.5rem;
+            border-radius: 6px;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(255, 69, 0, 0.5);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition-fast);
+            pointer-events: none;
+            z-index: 1000;
+        }
+        .toast.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: auto;
+            border-top: 1px solid var(--border-glass);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            background: rgba(6, 3, 2, 0.9);
+            position: relative;
+            z-index: 10;
+        }
+        .copyright-text {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Canvas and Grid -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="cyber-grid"></div>
+
+    <!-- Navigation Header -->
+    <header class="header-nav">
+        <a href="index.html" class="brand-logo" title="CODE SURGE 2K26 Powered by SynQ">
+            <img src="synq_logo.png" alt="SynQ Logo" class="synq-nav-logo synq-logo-img">
+        </a>
+        <div class="nav-actions">
+            <div class="status-badge" aria-label="Event Status">
+                <span class="status-dot"></span>
+                <span>TEAM PORTAL // ACTIVE</span>
+            </div>
+
+            <a href="index.html" class="btn-nav-action" title="Back to Home Page">
+                <i class="fa-solid fa-house"></i>
+                <span>HOME</span>
+            </a>
+
+            <!-- Light / Dark Theme Toggle -->
+            <button id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Light / Dark Mode">
+                <i class="fa-solid fa-sun"></i>
+            </button>
+
+            <!-- Sound Toggle -->
+            <button id="soundToggleBtn" class="sound-toggle-btn" title="Toggle Sound Effects">
+                <i class="fa-solid fa-volume-high"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        
+        <!-- Registration Confirmation Pass Banner -->
+        <div class="ticket-banner">
+            <div class="ticket-field">
+                <span class="ticket-label">Hacker Name</span>
+                <span class="ticket-value" id="passName">Alex Mercer</span>
+            </div>
+            <div class="ticket-field">
+                <span class="ticket-label">Registered Team</span>
+                <span class="ticket-value highlight" id="passTeam">SynQSurgeons</span>
+            </div>
+            <div class="ticket-field">
+                <span class="ticket-label">Official Pass Code</span>
+                <span class="ticket-value highlight" id="passCode">#CS2K26-8492</span>
+            </div>
+            <div class="ticket-field">
+                <span class="ticket-label">Squad Status</span>
+                <span class="ticket-value" id="passStatus" style="color: #22c55e;"><i class="fa-solid fa-check-circle"></i> VERIFIED SQUAD</span>
+            </div>
+        </div>
+
+        <!-- Section 1: Official Department Verification QR Code -->
+        <section class="glass-panel" style="text-align: center;">
+            <div class="panel-header" style="text-align: center;">
+                <h2 class="panel-title" style="justify-content: center;">
+                    <i class="fa-solid fa-qrcode" style="color: var(--accent-orange);"></i>
+                    <span>Department Verification QR Code</span>
+                </h2>
+                <p class="panel-subtitle">Official QR Code for Hackathon Department Entry Confirmation</p>
+            </div>
+
+            <!-- QR Code Container -->
+            <div class="qr-container" style="background: rgba(0, 0, 0, 0.4); border: 2px dashed var(--accent-orange); border-radius: 12px; padding: 2rem; max-width: 420px; margin: 1rem auto; box-shadow: 0 0 25px rgba(255, 69, 0, 0.25);">
+                <div style="background: #ffffff; padding: 1.25rem; border-radius: 12px; display: inline-block; box-shadow: 0 4px 20px rgba(0,0,0,0.6);">
+                    <img id="teamQrImage" src="" alt="Team Verification QR Code" style="width: 200px; height: 200px; display: block; margin: 0 auto;">
+                </div>
+
+                <div style="margin-top: 1.25rem; font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; color: var(--accent-orange); letter-spacing: 2px;">
+                    TEAM CODE: <span id="qrTeamCodeDisplay">HACK42</span>
+                </div>
+
+                <p style="font-family: var(--font-body); font-size: 0.92rem; color: var(--text-muted); margin-top: 0.6rem; line-height: 1.45;">
+                    <i class="fa-solid fa-shield-halved" style="color: #22c55e;"></i> Show this QR Code to the registration department. Scanning will display your verified Team Name, Team Members, and College details for entry confirmation.
+                </p>
+
+                <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="#" id="verifyLinkBtn" target="_blank" class="btn-surge" style="padding: 0.75rem 1.5rem; font-size: 0.88rem; text-decoration: none;">
+                        <i class="fa-solid fa-square-poll-vertical"></i>
+                        <span>TEST SCAN / VERIFY PASS</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Team Roster -->
+        <section class="glass-panel">
+            <div class="panel-header">
+                <h2 class="panel-title">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Current Team Roster</span>
+                </h2>
+                <p class="panel-subtitle">Live team status and confirmed members.</p>
+            </div>
+
+            <div class="team-grid" id="teamRosterGrid">
+                <!-- Host Member -->
+                <div class="member-card">
+                    <div class="member-avatar">H</div>
+                    <div class="member-details">
+                        <span class="member-email" id="hostEmail">alex@cybernet.io</span>
+                        <span class="member-role">TEAM LEADER (HOST)</span>
+                        <span class="member-status"><i class="fa-solid fa-circle"></i> CONFIRMED</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Direct Mobile Contact Section (Mobile Dialer Enabled) -->
+        <section class="glass-panel" id="contactSection">
+            <div class="panel-header">
+                <h2 class="panel-title">
+                    <i class="fa-solid fa-headset"></i>
+                    <span>Contact Organizing Team</span>
+                </h2>
+                <p class="panel-subtitle">Click any contact number below to instantly open your mobile phone dialer.</p>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Contact 1: Jayavardhan -->
+                <a href="tel:+918088389332" class="contact-card" title="Call Jayavardhan directly on mobile">
+                    <div class="contact-icon-wrap">
+                        <i class="fa-solid fa-phone-volume"></i>
+                    </div>
+                    <div class="contact-info">
+                        <span class="contact-name">Jayavardhan</span>
+                        <span class="contact-role">ORGANIZING TEAM</span>
+                        <span class="contact-phone"><i class="fa-solid fa-mobile-screen-button"></i> +91 8088389332</span>
+                    </div>
+                </a>
+
+                <!-- Contact 2: Praveen Reddy -->
+                <a href="tel:+918618118952" class="contact-card" title="Call Praveen Reddy directly on mobile">
+                    <div class="contact-icon-wrap">
+                        <i class="fa-solid fa-phone-volume"></i>
+                    </div>
+                    <div class="contact-info">
+                        <span class="contact-name">Praveen Reddy</span>
+                        <span class="contact-role">ORGANIZING TEAM</span>
+                        <span class="contact-phone"><i class="fa-solid fa-mobile-screen-button"></i> +91 8618118952</span>
+                    </div>
+                </a>
+
+                <!-- Contact 3: Ujwal M -->
+                <a href="tel:+917411237522" class="contact-card" title="Call Ujwal M directly on mobile">
+                    <div class="contact-icon-wrap">
+                        <i class="fa-solid fa-phone-volume"></i>
+                    </div>
+                    <div class="contact-info">
+                        <span class="contact-name">Ujwal M</span>
+                        <span class="contact-role">ORGANIZING TEAM</span>
+                        <span class="contact-phone"><i class="fa-solid fa-mobile-screen-button"></i> +91 7411237522</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Toast Banner -->
+    <div id="toast" class="toast">Link copied to clipboard!</div>
+
+    <!-- Footer -->
+    <footer>
+        <p class="copyright-text">&copy; 2026 CODE SURGE 2K26. All rights reserved. Powered by SynQ INITIATIVE.</p>
+    </footer>
+
+    <!-- Application Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Theme Toggle Logic
+            const themeToggleBtn = document.getElementById('themeToggleBtn');
+            const savedTheme = localStorage.getItem('theme');
+            function updateLogoTheme(isLight) {
+                document.querySelectorAll('.synq-logo-img').forEach(img => {
+                    img.src = isLight ? 'synq_logo_dark.png' : 'synq_logo.png';
+                });
+            }
+            if (savedTheme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                if (themeToggleBtn) themeToggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+                updateLogoTheme(true);
+            }
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', () => {
+                    let currentTheme = document.documentElement.getAttribute('data-theme');
+                    if (currentTheme === 'light') {
+                        document.documentElement.removeAttribute('data-theme');
+                        localStorage.setItem('theme', 'dark');
+                        themeToggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+                        updateLogoTheme(false);
+                    } else {
+                        document.documentElement.setAttribute('data-theme', 'light');
+                        localStorage.setItem('theme', 'light');
+                        themeToggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+                        updateLogoTheme(true);
+                    }
+                });
+            }
+
+            // Sound Effects Logic
+            let audioEnabled = true;
+            const soundToggleBtn = document.getElementById('soundToggleBtn');
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            soundToggleBtn.addEventListener('click', () => {
+                audioEnabled = !audioEnabled;
+                soundToggleBtn.innerHTML = audioEnabled ? '<i class="fa-solid fa-volume-high"></i>' : '<i class="fa-solid fa-volume-xmark"></i>';
+            });
+            function playBeep(freq = 300, duration = 0.08, type = 'sawtooth') {
+                if (!audioEnabled || !audioCtx) return;
+                try {
+                    if (audioCtx.state === 'suspended') audioCtx.resume();
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = type;
+                    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + duration);
+                } catch(e) {}
+            }
+
+            // Read query parameters or local storage
+            const urlParams = new URLSearchParams(window.location.search);
+            const hackerName = urlParams.get('name') || sessionStorage.getItem('cs_name') || 'Alex Mercer';
+            const hackerEmail = urlParams.get('email') || sessionStorage.getItem('cs_email') || 'alex@cybernet.io';
+            const teamName = urlParams.get('team') || sessionStorage.getItem('cs_team') || 'SynQSurgeons';
+            const passCode = urlParams.get('code') || sessionStorage.getItem('cs_code') || 'HACK42';
+            const userRole = urlParams.get('role') || sessionStorage.getItem('cs_role') || 'leader';
+            const token = sessionStorage.getItem('cs_token') || '';
+
+            const isLeader = userRole === 'leader';
+
+            document.getElementById('passName').textContent = hackerName;
+            document.getElementById('passTeam').textContent = teamName;
+            document.getElementById('passCode').textContent = passCode;
+            document.getElementById('hostEmail').textContent = hackerEmail;
+
+            const passStatusEl = document.getElementById('passStatus');
+            if (passStatusEl) {
+                if (isLeader) {
+                    passStatusEl.innerHTML = '<i class="fa-solid fa-crown"></i> TEAM LEADER (HOST)';
+                    passStatusEl.style.color = '#ffaa80';
+                } else {
+                    passStatusEl.innerHTML = '<i class="fa-solid fa-user-check"></i> CONFIRMED TEAM MEMBER';
+                    passStatusEl.style.color = '#22c55e';
+                }
+            }
+
+            // Verification URL & QR Code Generator (Black & White QR Code)
+            const verifyUrl = `${window.location.origin}/verify.html?code=${encodeURIComponent(passCode)}`;
+            const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(verifyUrl)}&color=000000&bgcolor=ffffff`;
+
+            const teamQrImage = document.getElementById('teamQrImage');
+            if (teamQrImage) teamQrImage.src = qrImageUrl;
+
+            const qrTeamCodeDisplay = document.getElementById('qrTeamCodeDisplay');
+            if (qrTeamCodeDisplay) qrTeamCodeDisplay.textContent = passCode;
+
+            const verifyLinkBtn = document.getElementById('verifyLinkBtn');
+            if (verifyLinkBtn) verifyLinkBtn.href = verifyUrl;
+
+            // Toast helper
+            function showToast(message) {
+                const toast = document.getElementById('toast');
+                if (toast) {
+                    toast.textContent = message;
+                    toast.classList.add('active');
+                    setTimeout(() => toast.classList.remove('active'), 3000);
+                }
+            }
+
+            const teamRosterGrid = document.getElementById('teamRosterGrid');
+
+            // Load live roster from MongoDB API if token is present
+            if (token) {
+                fetch('http://localhost:5000/api/teams/my-team', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success && data.team && data.team.members) {
+                        teamRosterGrid.innerHTML = '';
+                        data.team.members.forEach(member => {
+                            const initial = member.name ? member.name.charAt(0).toUpperCase() : 'M';
+                            const memberCard = document.createElement('div');
+                            memberCard.className = 'member-card';
+                            memberCard.innerHTML = `
+                                <div class="member-avatar">${initial}</div>
+                                <div class="member-details">
+                                    <span class="member-email">${member.name} (${member.email})</span>
+                                    <span class="member-role">${member.is_team_leader ? 'TEAM LEADER (HOST)' : 'TEAM MEMBER'}</span>
+                                    <span class="member-status"><i class="fa-solid fa-circle"></i> CONFIRMED</span>
+                                </div>
+                            `;
+                            teamRosterGrid.appendChild(memberCard);
+                        });
+                    }
+                })
+                .catch(() => {});
+            }
+
+            // Invite Form Submission
+            const inviteForm = document.getElementById('inviteForm');
+            if (inviteForm) {
+                inviteForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const emailInput = document.getElementById('inviteeEmail');
+                    const roleInput = document.getElementById('inviteeRole');
+
+                    const email = emailInput.value.trim();
+                    const role = roleInput.value.trim() || 'DEVELOPER';
+
+                    if (!email) return;
+
+                    // Send request to backend API (if available)
+                    fetch('http://localhost:5000/api/invite', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ senderName: hackerName, teamName, inviteeEmail: email, inviteeRole: role })
+                    }).catch(() => {});
+
+                    // Add member card to team roster grid
+                    const initial = email.charAt(0).toUpperCase();
+                    const memberCard = document.createElement('div');
+                    memberCard.className = 'member-card';
+                    memberCard.innerHTML = `
+                        <div class="member-avatar">${initial}</div>
+                        <div class="member-details">
+                            <span class="member-email">${email}</span>
+                            <span class="member-role">${role.toUpperCase()}</span>
+                            <span class="member-status"><i class="fa-solid fa-clock"></i> INVITED</span>
+                        </div>
+                    `;
+
+                    teamRosterGrid.appendChild(memberCard);
+                    showToast(`Invitation sent to ${email}!`);
+                    playBeep(440, 0.1, 'sine');
+                    inviteForm.reset();
+                });
+            }
+
+            // Contact Cards Click Listener to trigger Mobile Dialer directly
+            document.querySelectorAll('.contact-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    const telHref = card.getAttribute('href');
+                    if (telHref && telHref.startsWith('tel:')) {
+                        playBeep(600, 0.08, 'sawtooth');
+                        window.location.href = telHref;
+                    }
+                });
+            });
+
+            // Ember Background Particle Canvas
+            const canvas = document.getElementById('bg-canvas');
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+            const particles = [];
+            for (let i = 0; i < 40; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: -(Math.random() * 0.6 + 0.2),
+                    radius: Math.random() * 2 + 0.8,
+                    alpha: Math.random() * 0.6 + 0.25
+                });
+            }
+            function animateCanvas() {
+                ctx.clearRect(0, 0, width, height);
+                const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+                const color = isLight ? '#ea580c' : '#ff4500';
+                particles.forEach(p => {
+                    p.x += p.vx; p.y += p.vy;
+                    if (p.y < 0) p.y = height;
+                    ctx.save();
+                    ctx.globalAlpha = p.alpha;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = color;
+                    ctx.fill();
+                    ctx.restore();
+                });
+                requestAnimationFrame(animateCanvas);
+            }
+            animateCanvas();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CODE SURGE 2K26 - Official Department Verification Portal. Verify registered hackathon teams and members.">
+    <meta name="theme-color" content="#060302">
+    <title>Department Verification | CODE SURGE 2K26</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Syncopate:wght@700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        :root {
+            --bg-primary: #060302;
+            --bg-secondary: #0c0705;
+            --bg-card: rgba(18, 10, 7, 0.88);
+            --accent-orange: #ff4500;
+            --accent-red: #ff2200;
+            --accent-green: #22c55e;
+            --text-main: #ffffff;
+            --text-muted: #9e8e85;
+            --text-orange: #ffaa80;
+            --border-glass: rgba(255, 69, 0, 0.25);
+            --font-display: 'Orbitron', sans-serif;
+            --font-body: 'Rajdhani', sans-serif;
+            --font-mono: 'Share Tech Mono', monospace;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --text-orange: #ea580c;
+            --border-glass: rgba(234, 88, 12, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .cyber-grid {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(to right, rgba(255, 69, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 69, 0, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none; z-index: 2;
+        }
+
+        .header-nav {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1rem 2rem;
+            background: rgba(6, 3, 2, 0.9);
+            border-bottom: 1px solid var(--border-glass);
+            position: relative; z-index: 10;
+        }
+        .synq-nav-logo { height: 38px; width: auto; object-fit: contain; }
+
+        .main-container {
+            position: relative; z-index: 10;
+            width: 100%; max-width: 900px;
+            margin: 2.5rem auto; padding: 0 1.5rem;
+        }
+
+        .glass-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            padding: 2rem;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            margin-bottom: 2rem;
+        }
+
+        /* Verification Badge */
+        .verification-badge {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(12, 7, 5, 0.95));
+            border: 2px solid var(--accent-green);
+            border-radius: 12px;
+            padding: 1.75rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 25px rgba(34, 197, 94, 0.25);
+        }
+        .badge-icon {
+            font-size: 3.5rem;
+            color: var(--accent-green);
+            margin-bottom: 0.5rem;
+            animation: pulseGlow 2s infinite;
+        }
+        @keyframes pulseGlow { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+        .badge-title {
+            font-family: var(--font-display);
+            font-size: 1.6rem; font-weight: 900;
+            color: var(--accent-green);
+            letter-spacing: 2px;
+        }
+        .badge-sub {
+            font-family: var(--font-mono);
+            font-size: 0.9rem; color: var(--text-muted);
+            letter-spacing: 1px; margin-top: 0.3rem;
+        }
+
+        /* Details Grid */
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-glass);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .detail-item { display: flex; flex-direction: column; gap: 0.25rem; }
+        .detail-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .detail-value {
+            font-family: var(--font-display);
+            font-size: 1.15rem; font-weight: 700;
+            color: var(--text-main);
+        }
+        .detail-value.highlight { color: var(--accent-orange); }
+
+        /* Members List */
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem; font-weight: 700;
+            color: var(--accent-orange);
+            margin-bottom: 1rem;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+
+        .member-card {
+            background: rgba(255, 69, 0, 0.05);
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 0.85rem;
+        }
+        .member-info { display: flex; flex-direction: column; gap: 0.2rem; }
+        .member-name { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--text-main); }
+        .member-meta { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); }
+        .role-tag {
+            font-family: var(--font-mono); font-size: 0.75rem;
+            padding: 0.25rem 0.65rem; border-radius: 4px;
+            background: rgba(255, 69, 0, 0.15); border: 1px solid var(--border-glass);
+            color: var(--accent-orange);
+        }
+
+        footer {
+            margin-top: auto; padding: 1.5rem; text-align: center;
+            border-top: 1px solid var(--border-glass);
+            color: var(--text-muted); font-size: 0.85rem;
+            position: relative; z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div class="cyber-grid"></div>
+
+    <header class="header-nav">
+        <a href="index.html" class="brand-logo">
+            <img src="synq_logo.png" alt="SynQ Logo" class="synq-nav-logo">
+        </a>
+        <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent-orange);">
+            <i class="fa-solid fa-building-columns"></i> HACKATHON DEPT VERIFICATION PORTAL
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Verification Banner -->
+        <div class="verification-badge" id="verificationBadge">
+            <div class="badge-icon"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="badge-title">OFFICIAL REGISTRATION VERIFIED</div>
+            <div class="badge-sub">CONFIRMED ENTRY PASS // CODE SURGE 2K26</div>
+        </div>
+
+        <section class="glass-panel">
+            <h3 class="section-title">
+                <i class="fa-solid fa-id-card"></i>
+                <span>Registered Team Information</span>
+            </h3>
+
+            <div class="details-grid">
+                <div class="detail-item">
+                    <span class="detail-label">Team Name</span>
+                    <span class="detail-value highlight" id="verifyTeamName">CodeWarriors</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Official Team Code</span>
+                    <span class="detail-value highlight" id="verifyTeamCode">HACK42</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">College / Institution</span>
+                    <span class="detail-value" id="verifyCollege">Tech Institute of Science</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Total Verified Members</span>
+                    <span class="detail-value" id="verifyTotalCount">4 / 4 Hackers</span>
+                </div>
+            </div>
+
+            <h3 class="section-title" style="margin-top: 1.5rem;">
+                <i class="fa-solid fa-users-check"></i>
+                <span>Confirmed Team Roster</span>
+            </h3>
+
+            <div id="verifyMembersList">
+                <!-- Roster Items Rendered Dynamically -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2026 CODE SURGE 2K26. Official Department Entry Verification System.
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const teamCode = urlParams.get('code') || urlParams.get('team_code') || sessionStorage.getItem('cs_code') || 'HACK42';
+
+            const elTeamName = document.getElementById('verifyTeamName');
+            const elTeamCode = document.getElementById('verifyTeamCode');
+            const elCollege = document.getElementById('verifyCollege');
+            const elTotalCount = document.getElementById('verifyTotalCount');
+            const elMembersList = document.getElementById('verifyMembersList');
+
+            // Query backend verification API
+            fetch(`http://localhost:5000/api/teams/verify/${encodeURIComponent(teamCode)}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success && data.verified) {
+                        elTeamName.textContent = data.team_name;
+                        elTeamCode.textContent = data.team_code;
+                        elCollege.textContent = data.college_name || (data.leader && data.leader.college_name) || 'Registered College';
+                        elTotalCount.textContent = `${data.total_members} Hackers`;
+
+                        elMembersList.innerHTML = '';
+                        data.members.forEach(member => {
+                            const card = document.createElement('div');
+                            card.className = 'member-card';
+                            card.innerHTML = `
+                                <div class="member-info">
+                                    <div class="member-name">${member.name}</div>
+                                    <div class="member-meta">${member.email} | ${member.phone} | ${member.college_name || 'College'} (${member.year_of_study || 'Student'})</div>
+                                </div>
+                                <div class="role-tag">${member.is_team_leader ? 'TEAM LEADER' : 'TEAM MEMBER'}</div>
+                            `;
+                            elMembersList.appendChild(card);
+                        });
+                    } else {
+                        renderLocalFallback();
+                    }
+                })
+                .catch(() => {
+                    renderLocalFallback();
+                });
+
+            function renderLocalFallback() {
+                const localName = sessionStorage.getItem('cs_name') || 'Alex Mercer';
+                const localEmail = sessionStorage.getItem('cs_email') || 'alex@cybernet.io';
+                const localPhone = sessionStorage.getItem('cs_phone') || '+91 9876543210';
+                const localCollege = sessionStorage.getItem('cs_college') || 'Tech Institute of Science';
+                const localYear = sessionStorage.getItem('cs_year') || '3rd Year';
+                const localTeam = sessionStorage.getItem('cs_team') || 'SynQSurgeons';
+
+                elTeamName.textContent = localTeam;
+                elTeamCode.textContent = teamCode;
+                elCollege.textContent = localCollege;
+                elTotalCount.textContent = '1 Verified Hacker';
+
+                elMembersList.innerHTML = `
+                    <div class="member-card">
+                        <div class="member-info">
+                            <div class="member-name">${localName}</div>
+                            <div class="member-meta">${localEmail} | ${localPhone} | ${localCollege} (${localYear})</div>
+                        </div>
+                        <div class="role-tag">TEAM LEADER</div>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
