@@ -646,13 +646,6 @@
                 <p style="font-family: var(--font-body); font-size: 0.92rem; color: var(--text-muted); margin-top: 0.6rem; line-height: 1.45;">
                     <i class="fa-solid fa-shield-halved" style="color: #22c55e;"></i> Show this QR Code to the registration department. Scanning will display your verified Team Name, Team Members, and College details for entry confirmation.
                 </p>
-
-                <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
-                    <a href="#" id="verifyLinkBtn" target="_blank" class="btn-surge" style="padding: 0.75rem 1.5rem; font-size: 0.88rem; text-decoration: none;">
-                        <i class="fa-solid fa-square-poll-vertical"></i>
-                        <span>TEST SCAN / VERIFY PASS</span>
-                    </a>
-                </div>
             </div>
         </section>
 
@@ -833,9 +826,6 @@
 
             const qrTeamCodeDisplay = document.getElementById('qrTeamCodeDisplay');
             if (qrTeamCodeDisplay) qrTeamCodeDisplay.textContent = passCode;
-
-            const verifyLinkBtn = document.getElementById('verifyLinkBtn');
-            if (verifyLinkBtn) verifyLinkBtn.href = verifyUrl;
 
             // Toast helper
             function showToast(message) {
