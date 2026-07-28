@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +11,14 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Syncopate:wght@700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Syncopate:wght@700;800&display=swap"
+        rel="stylesheet">
 
     <!-- Font Awesome Icons CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
         /* ==========================================================================
@@ -25,9 +30,12 @@
             --bg-card: rgba(18, 10, 7, 0.85);
             --bg-card-hover: rgba(28, 14, 9, 0.95);
 
-            --accent-orange: #ff4500; /* Lava Orange */
-            --accent-red: #ff2200;    /* Crimson Red */
-            --accent-amber: #e67700;  /* Warm Amber */
+            --accent-orange: #ff4500;
+            /* Lava Orange */
+            --accent-red: #ff2200;
+            /* Crimson Red */
+            --accent-amber: #e67700;
+            /* Warm Amber */
 
             --text-main: #ffffff;
             --text-muted: #9e8e85;
@@ -126,7 +134,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
+            background-image:
                 linear-gradient(to right, rgba(255, 69, 0, 0.03) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(255, 69, 0, 0.03) 1px, transparent 1px);
             background-size: 45px 45px;
@@ -135,7 +143,7 @@
         }
 
         [data-theme="light"] .cyber-grid {
-            background-image: 
+            background-image:
                 linear-gradient(to right, rgba(234, 88, 12, 0.06) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(234, 88, 12, 0.06) 1px, transparent 1px);
         }
@@ -177,7 +185,8 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
         }
 
-        .hud-bracket-box::before, .hud-bracket-box::after {
+        .hud-bracket-box::before,
+        .hud-bracket-box::after {
             content: '';
             position: absolute;
             width: 8px;
@@ -297,11 +306,21 @@
         }
 
         @keyframes pulse-dot {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.3); opacity: 0.5; }
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.3);
+                opacity: 0.5;
+            }
         }
 
-        .theme-toggle-btn, .sound-toggle-btn {
+        .theme-toggle-btn,
+        .sound-toggle-btn {
             background: rgba(18, 10, 7, 0.9);
             border: 1px solid var(--border-glass);
             color: var(--accent-orange);
@@ -322,7 +341,8 @@
             color: #ea580c;
         }
 
-        .theme-toggle-btn:hover, .sound-toggle-btn:hover {
+        .theme-toggle-btn:hover,
+        .sound-toggle-btn:hover {
             border-color: var(--accent-orange);
             color: #ffffff;
             background: var(--accent-orange);
@@ -479,7 +499,7 @@
             text-transform: uppercase;
             letter-spacing: 12px;
             color: #ffffff;
-            text-shadow: 
+            text-shadow:
                 1px 1px 0px #cbd5e1,
                 2px 2px 0px #94a3b8,
                 3px 3px 0px #64748b,
@@ -494,7 +514,7 @@
 
         [data-theme="light"] .title-code {
             color: #0f172a;
-            text-shadow: 
+            text-shadow:
                 1px 1px 0px #e2e8f0,
                 2px 2px 0px #cbd5e1,
                 3px 3px 0px #94a3b8,
@@ -519,7 +539,7 @@
             text-transform: uppercase;
             letter-spacing: 8px;
             color: var(--accent-orange);
-            text-shadow: 
+            text-shadow:
                 1px 1px 0px #e63e00,
                 2px 2px 0px #cc3300,
                 3px 3px 0px #b32b00,
@@ -534,7 +554,7 @@
         }
 
         [data-theme="light"] .title-surge {
-            text-shadow: 
+            text-shadow:
                 1px 1px 0px #c2410c,
                 2px 2px 0px #9a3412,
                 3px 3px 0px #7c2d12,
@@ -547,7 +567,7 @@
             font-weight: 900;
             font-style: italic;
             color: var(--accent-orange);
-            text-shadow: 
+            text-shadow:
                 1px 1px 0px #b32b00,
                 2px 2px 0px #661100,
                 3px 3px 0px #1a0200,
@@ -714,7 +734,7 @@
             transform: rotateX(180deg);
         }
 
-        .flip-card-h .flip-card-front, 
+        .flip-card-h .flip-card-front,
         .flip-card-h .flip-card-back {
             position: absolute;
             width: 100%;
@@ -843,7 +863,7 @@
             letter-spacing: 2px;
             line-height: 1;
             margin-bottom: 0.35rem;
-            text-shadow: 
+            text-shadow:
                 1px 1px 0px #b32b00,
                 2px 2px 0px #661100,
                 3px 3px 6px rgba(0, 0, 0, 0.9);
@@ -1375,7 +1395,7 @@
             border-color: var(--accent-orange);
         }
 
-        .form-control:focus + i {
+        .form-control:focus+i {
             color: var(--accent-orange);
         }
 
@@ -1391,7 +1411,7 @@
             border-color: #ff3333;
         }
 
-        .form-control.is-invalid ~ .error-message {
+        .form-control.is-invalid~.error-message {
             display: block;
         }
 
@@ -1405,6 +1425,7 @@
             padding: 0.35rem;
             margin-bottom: 1.5rem;
         }
+
         [data-theme="light"] .reg-mode-selector {
             background: rgba(241, 245, 249, 0.9);
         }
@@ -1446,13 +1467,15 @@
             margin-top: 1.5rem;
             width: 100%;
         }
+
         @media (max-width: 540px) {
             .modal-actions {
                 grid-template-columns: 1fr;
             }
         }
 
-        .btn-modal-primary, .btn-modal-secondary {
+        .btn-modal-primary,
+        .btn-modal-secondary {
             width: 100%;
             min-height: 52px;
             padding: 0.75rem 1rem;
@@ -1856,7 +1879,8 @@
                 grid-template-columns: 1fr;
             }
 
-            .countdown-grid, .prize-grid {
+            .countdown-grid,
+            .prize-grid {
                 gap: 0.5rem;
             }
 
@@ -1878,6 +1902,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- Canvas Background for Fiery Ember Particles -->
@@ -1898,12 +1923,14 @@
             </div>
 
             <!-- Light / Dark Mode Toggle Button -->
-            <button id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Light / Dark Mode" aria-label="Toggle Theme">
+            <button id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Light / Dark Mode"
+                aria-label="Toggle Theme">
                 <i class="fa-solid fa-sun"></i>
             </button>
 
             <!-- Sound Effects Toggle Button -->
-            <button id="soundToggleBtn" class="sound-toggle-btn" title="Toggle Synth Sound Effects" aria-label="Toggle Sound">
+            <button id="soundToggleBtn" class="sound-toggle-btn" title="Toggle Synth Sound Effects"
+                aria-label="Toggle Sound">
                 <i class="fa-solid fa-volume-high"></i>
             </button>
         </div>
@@ -1911,16 +1938,17 @@
 
     <!-- Hero / Poster Visual Identity Section -->
     <section class="hero-section">
-        
+
         <!-- Top Poster Directives Header -->
         <div class="poster-top-hud">
             <div class="terminal-directives">
-                <div class="directive-line"><span class="prefix">&gt;</span> <span class="highlight">SYNQ INITIATIVE_</span></div>
+                <div class="directive-line"><span class="prefix">&gt;</span> <span class="highlight">SYNQ
+                        INITIATIVE_</span></div>
                 <div class="directive-line"><span class="prefix">&gt;</span> BUILD. BREAK. INNOVATE_</div>
                 <div class="directive-line"><span class="prefix">&gt;</span> CODE THE FUTURE_</div>
                 <div class="directive-line"><span class="prefix">&gt;</span> LEAVE YOUR SURGE_</div>
             </div>
-            
+
             <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: flex-end; align-items: center;">
                 <div class="hud-year-card hud-bracket-box">
                     <div class="hud-year-code"><i class="fa-regular fa-calendar" style="color: var(--accent-orange);"></i> DATE</div>
@@ -1974,10 +2002,10 @@
 
     <!-- Main Content Container -->
     <main class="main-container">
-        
+
         <!-- ROW 1: Hackathon Tracks & Prize Pool Section -->
         <div class="two-column-grid" style="margin-bottom: 2.5rem;">
-            
+
             <!-- LEFT CARD: Hackathon Tracks & Domains (Full-Width Horizontal Flip Bars) -->
             <section class="glass-panel">
                 <div class="panel-header">
@@ -1990,7 +2018,7 @@
 
                 <!-- 3 Horizontal Domain Flip Bars (Proportional Full-Width Height Alignment) -->
                 <div class="flip-card-list-horizontal">
-                    
+
                     <!-- Domain 1: ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING -->
                     <div class="flip-card-h">
                         <div class="flip-card-inner">
@@ -1998,15 +2026,18 @@
                                 <div class="front-left-content">
                                     <i class="fa-solid fa-brain"></i>
                                     <div class="title-wrap">
-                                        <span class="flip-card-title">Artificial Intelligence &amp; Machine Learning</span>
-                                        <span class="flip-card-subtext">LLMs · Autonomous Agents · Neural Reasoning · Vision</span>
+                                        <span class="flip-card-title">Artificial Intelligence &amp; Machine
+                                            Learning</span>
+                                        <span class="flip-card-subtext">LLMs · Autonomous Agents · Neural Reasoning ·
+                                            Vision</span>
                                     </div>
                                 </div>
                                 <span class="flip-card-tag">&lt;AI / ML&gt;</span>
                             </div>
                             <div class="flip-card-back">
                                 <div class="flip-back-title">Artificial Intelligence &amp; Machine Learning</div>
-                                <div class="flip-back-desc">Build autonomous AI agents, LLM pipelines, neural reasoning models, computer vision systems, and predictive data analytics.</div>
+                                <div class="flip-back-desc">Build autonomous AI agents, LLM pipelines, neural reasoning
+                                    models, computer vision systems, and predictive data analytics.</div>
                             </div>
                         </div>
                     </div>
@@ -2019,14 +2050,16 @@
                                     <i class="fa-solid fa-shield-halved"></i>
                                     <div class="title-wrap">
                                         <span class="flip-card-title">Cyber Security</span>
-                                        <span class="flip-card-subtext">Zero-Trust · Cloud SecOps · Encrypted Mesh · Audit</span>
+                                        <span class="flip-card-subtext">Zero-Trust · Cloud SecOps · Encrypted Mesh ·
+                                            Audit</span>
                                     </div>
                                 </div>
                                 <span class="flip-card-tag">#! SecOps</span>
                             </div>
                             <div class="flip-card-back">
                                 <div class="flip-back-title">Cyber Security</div>
-                                <div class="flip-back-desc">Architect zero-trust security frameworks, vulnerability audit engines, encrypted communication networks, and cloud defense.</div>
+                                <div class="flip-back-desc">Architect zero-trust security frameworks, vulnerability
+                                    audit engines, encrypted communication networks, and cloud defense.</div>
                             </div>
                         </div>
                     </div>
@@ -2039,14 +2072,16 @@
                                     <i class="fa-solid fa-coins"></i>
                                     <div class="title-wrap">
                                         <span class="flip-card-title">FinTech</span>
-                                        <span class="flip-card-subtext">Payment Gateways · DeFi · Algo Trading · Anti-Fraud</span>
+                                        <span class="flip-card-subtext">Payment Gateways · DeFi · Algo Trading ·
+                                            Anti-Fraud</span>
                                     </div>
                                 </div>
                                 <span class="flip-card-tag">[₹ FinTech]</span>
                             </div>
                             <div class="flip-card-back">
                                 <div class="flip-back-title">FinTech</div>
-                                <div class="flip-back-desc">Construct next-gen payment gateways, algorithmic trading systems, decentralized finance protocols, and anti-fraud engines.</div>
+                                <div class="flip-back-desc">Construct next-gen payment gateways, algorithmic trading
+                                    systems, decentralized finance protocols, and anti-fraud engines.</div>
                             </div>
                         </div>
                     </div>
@@ -2130,7 +2165,8 @@
                         <i class="fa-solid fa-code"></i>
                     </div>
                     <h3 class="pillar-title"><span class="tag-symbol">&lt;&gt;</span> CODE</h3>
-                    <p class="pillar-desc">Architect production-grade algorithms, high-throughput engines, and resilient AI systems.</p>
+                    <p class="pillar-desc">Architect production-grade algorithms, high-throughput engines, and resilient
+                        AI systems.</p>
                 </div>
 
                 <!-- Pillar 2: CREATE -->
@@ -2139,7 +2175,8 @@
                         <i class="fa-solid fa-cube"></i>
                     </div>
                     <h3 class="pillar-title"><span class="tag-symbol">[ ]</span> CREATE</h3>
-                    <p class="pillar-desc">Forge groundbreaking ideas into fully functional prototypes that disrupt traditional tech.</p>
+                    <p class="pillar-desc">Forge groundbreaking ideas into fully functional prototypes that disrupt
+                        traditional tech.</p>
                 </div>
 
                 <!-- Pillar 3: COLLABORATE -->
@@ -2148,7 +2185,8 @@
                         <i class="fa-solid fa-users-viewfinder"></i>
                     </div>
                     <h3 class="pillar-title"><span class="tag-symbol">&amp;&amp;</span> COLLABORATE</h3>
-                    <p class="pillar-desc">Join forces with elite engineers, mentors, and innovators to push boundaries together.</p>
+                    <p class="pillar-desc">Join forces with elite engineers, mentors, and innovators to push boundaries
+                        together.</p>
                 </div>
 
                 <!-- Pillar 4: CONQUER -->
@@ -2157,13 +2195,15 @@
                         <i class="fa-solid fa-crosshairs"></i>
                     </div>
                     <h3 class="pillar-title"><span class="tag-symbol">#!</span> CONQUER</h3>
-                    <p class="pillar-desc">Dominate 48 hours of intense hackathon challenges and claim legendary rewards.</p>
+                    <p class="pillar-desc">Dominate 48 hours of intense hackathon challenges and claim legendary
+                        rewards.</p>
                 </div>
             </div>
 
             <!-- Quote Block -->
             <div class="quote-block">
-                <p class="quote-text">"BUILD. BREAK. INNOVATE. The future isn't waited for—it's forged in lines of code."</p>
+                <p class="quote-text">"BUILD. BREAK. INNOVATE. The future isn't waited for—it's forged in lines of
+                    code."</p>
                 <p class="quote-author">— SYNQ INITIATIVE DIRECTIVE 2K26</p>
             </div>
         </section>
@@ -2230,7 +2270,8 @@
                     <div class="form-group">
                         <label for="fullName" class="form-label">Full Name *</label>
                         <div class="input-wrap">
-                            <input type="text" id="fullName" class="form-control" placeholder="e.g. Alex Mercer" required>
+                            <input type="text" id="fullName" class="form-control" placeholder="e.g. Alex Mercer"
+                                required>
                             <i class="fa-solid fa-user"></i>
                         </div>
                         <div class="error-message">Please enter your full name.</div>
@@ -2240,7 +2281,8 @@
                     <div class="form-group">
                         <label for="emailAddr" class="form-label">Email Address *</label>
                         <div class="input-wrap">
-                            <input type="email" id="emailAddr" class="form-control" placeholder="e.g. alex@cybernet.io" required>
+                            <input type="email" id="emailAddr" class="form-control" placeholder="e.g. alex@cybernet.io"
+                                required>
                             <i class="fa-solid fa-envelope"></i>
                         </div>
                         <div class="error-message">Please enter a valid email address.</div>
@@ -2250,7 +2292,8 @@
                     <div class="form-group">
                         <label for="phoneNum" class="form-label">Phone Number *</label>
                         <div class="input-wrap">
-                            <input type="tel" id="phoneNum" class="form-control" placeholder="e.g. +91 9876543210" required>
+                            <input type="tel" id="phoneNum" class="form-control" placeholder="e.g. +91 9876543210"
+                                required>
                             <i class="fa-solid fa-phone"></i>
                         </div>
                         <div class="error-message">Please enter your phone number.</div>
@@ -2260,7 +2303,8 @@
                     <div class="form-group">
                         <label for="collegeName" class="form-label">College Name *</label>
                         <div class="input-wrap">
-                            <input type="text" id="collegeName" class="form-control" placeholder="e.g. Tech Institute of Science" required>
+                            <input type="text" id="collegeName" class="form-control"
+                                placeholder="e.g. Tech Institute of Science" required>
                             <i class="fa-solid fa-graduation-cap"></i>
                         </div>
                         <div class="error-message">Please enter your college name.</div>
@@ -2270,7 +2314,8 @@
                     <div class="form-group">
                         <label for="yearOfStudy" class="form-label">Year of Study *</label>
                         <div class="input-wrap">
-                            <select id="yearOfStudy" class="form-control" style="appearance: auto; cursor: pointer;" required>
+                            <select id="yearOfStudy" class="form-control" style="appearance: auto; cursor: pointer;"
+                                required>
                                 <option value="" disabled selected>Select Year of Study</option>
                                 <option value="1st Year">1st Year</option>
                                 <option value="2nd Year">2nd Year</option>
@@ -2287,7 +2332,8 @@
                     <div class="form-group" id="groupTeamName">
                         <label for="teamName" class="form-label">Team Name *</label>
                         <div class="input-wrap">
-                            <input type="text" id="teamName" class="form-control" placeholder="e.g. SynQSurgeons" required>
+                            <input type="text" id="teamName" class="form-control" placeholder="e.g. SynQSurgeons"
+                                required>
                             <i class="fa-solid fa-users"></i>
                         </div>
                         <div class="error-message">Please enter your team name.</div>
@@ -2297,7 +2343,9 @@
                     <div class="form-group" id="groupTeamCode" style="display: none;">
                         <label for="teamCode" class="form-label">Team Code *</label>
                         <div class="input-wrap">
-                            <input type="text" id="teamCode" class="form-control" placeholder="e.g. HACK42 or CS2K26-8492" style="text-transform: uppercase; letter-spacing: 2px;">
+                            <input type="text" id="teamCode" class="form-control"
+                                placeholder="e.g. HACK42 or CS2K26-8492"
+                                style="text-transform: uppercase; letter-spacing: 2px;">
                             <i class="fa-solid fa-key"></i>
                         </div>
                         <div class="error-message">Please enter the 6-character Team Code.</div>
@@ -2337,7 +2385,8 @@
                     <div class="contact-info">
                         <span class="contact-name">Jayavardhan</span>
                         <span class="contact-role">ORGANIZING TEAM</span>
-                        <span class="contact-phone"><i class="fa-solid fa-mobile-screen-button"></i> +91 8088389332</span>
+                        <span class="contact-phone"><i class="fa-solid fa-mobile-screen-button"></i> +91
+                            8088389332</span>
                     </div>
                 </a>
 
@@ -2349,7 +2398,8 @@
                     <div class="contact-info">
                         <span class="contact-name">Praveen Reddy</span>
                         <span class="contact-role">ORGANIZING TEAM</span>
-                        <span class="contact-phone"><i class="fa-solid fa-mobile-screen-button"></i> +91 8618118952</span>
+                        <span class="contact-phone"><i class="fa-solid fa-mobile-screen-button"></i> +91
+                            8618118952</span>
                     </div>
                 </a>
 
@@ -2361,7 +2411,8 @@
                     <div class="contact-info">
                         <span class="contact-name">Ujwal M</span>
                         <span class="contact-role">ORGANIZING TEAM</span>
-                        <span class="contact-phone"><i class="fa-solid fa-mobile-screen-button"></i> +91 7411237522</span>
+                        <span class="contact-phone"><i class="fa-solid fa-mobile-screen-button"></i> +91
+                            7411237522</span>
                     </div>
                 </a>
             </div>
@@ -2424,10 +2475,14 @@
             </div>
 
             <div class="social-links">
-                <a href="#" class="social-link" title="Twitter / X" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="#" class="social-link" title="GitHub" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-                <a href="#" class="social-link" title="Discord" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
-                <a href="#" class="social-link" title="LinkedIn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" class="social-link" title="Twitter / X" aria-label="Twitter"><i
+                        class="fa-brands fa-x-twitter"></i></a>
+                <a href="#" class="social-link" title="GitHub" aria-label="GitHub"><i
+                        class="fa-brands fa-github"></i></a>
+                <a href="#" class="social-link" title="Discord" aria-label="Discord"><i
+                        class="fa-brands fa-discord"></i></a>
+                <a href="#" class="social-link" title="LinkedIn" aria-label="LinkedIn"><i
+                        class="fa-brands fa-linkedin-in"></i></a>
             </div>
 
             <p class="copyright-text">&copy; 2026 CODE SURGE 2K26. All rights reserved. Powered by SynQ INITIATIVE.</p>
@@ -2519,7 +2574,7 @@
                     gain.connect(audioCtx.destination);
                     osc.start();
                     osc.stop(audioCtx.currentTime + duration);
-                } catch(e) { /* ignore audio restrictions */ }
+                } catch (e) { /* ignore audio restrictions */ }
             }
 
             function playSuccessChime() {
@@ -2843,7 +2898,7 @@
                     playSuccessChime();
 
                     const finalTeamName = resData.team_name || (role === 'leader' ? inputTeam.value.trim() : 'SynQ Team');
-                    const finalTeamCode = resData.team_code || (role === 'leader' ? `#CS2K26-${Math.floor(1000+Math.random()*9000)}` : inputCode.value.trim().toUpperCase());
+                    const finalTeamCode = resData.team_code || (role === 'leader' ? `#CS2K26-${Math.floor(1000 + Math.random() * 9000)}` : inputCode.value.trim().toUpperCase());
                     const token = resData.token || '';
 
                     // Save to Session Storage
@@ -3058,4 +3113,5 @@
         });
     </script>
 </body>
+
 </html>
